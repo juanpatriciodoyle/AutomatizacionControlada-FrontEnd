@@ -2,18 +2,18 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {EmployeeComponent} from './Employees/employee.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
-import {EmployeeDetailsComponent} from './EmployeesDetails/employeeDetails.component';
+import {ClientComponent} from './Clients/client.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {DemoMaterialModule} from './Material/material-module';
+import {EmployeeComponent} from './Employees/employee.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EmployeeComponent,
-    EmployeeDetailsComponent
+    ClientComponent
 
   ],
   imports: [
