@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {EmployeeService} from '../Services/employee.service';
 import {PeriodicElement} from './periodicElement';
+import {Employee} from '../Employees/employee';
 
 /**
  * @title Table with expandable rows
@@ -32,7 +33,8 @@ export class ClientComponent implements OnInit{
   }
 
   getEmployees(): void{
-    this.employeeService.getEmployees().subscribe(e => this.employees= e);
+    this.employeeService.getEmployees().subscribe(e => this.employees= e.map(employee =>
+    Employee.from(employee)));
   }
 }
 
