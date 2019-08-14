@@ -1,5 +1,11 @@
+#employee-table {
+  padding-left: 70px;
+  padding-right: 70px;
+}
+
 table {
   width: 100%;
+  margin-bottom: 30px;
 }
 
 tr.example-detail-row {
@@ -44,4 +50,8 @@ tr.example-element-row:not(.example-expanded-row):active {
 
 .example-element-description-attribution {
   opacity: 0.5;
+}
+
+.plus{
+  text-align: right;
 }
