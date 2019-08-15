@@ -1,14 +1,14 @@
 import {Component, OnInit} from '@angular/core';
-import {EmployeeService} from '../Services/employee.service';
+import {EmployeeService} from '../../Services/employee.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {Employee} from './employee';
+import {Employee} from "../employee";
 
 
 @Component({
 
-  selector: 'app-employee',
-  templateUrl: './employee.component.html',
-  styleUrls: ['./employee.component.scss'],
+  selector: 'app-add-employee',
+  templateUrl: './addEmployee.component.html',
+  styleUrls: ['./addEmployee.component.scss'],
   animations: [
     trigger('detailExpand', [
       state('collapsed', style({height: '0px', minHeight: '0'})),
@@ -18,7 +18,7 @@ import {Employee} from './employee';
   ],
 })
 
-export class EmployeeComponent implements OnInit{
+export class AddEmployeeComponent implements OnInit{
   employees: Employee[];
   columnsToDisplay = ['id','nombre', 'apellido', 'posicion'];
   columnTranslated = {
@@ -42,6 +42,6 @@ export class EmployeeComponent implements OnInit{
   }
 
   add(value: any) {
-    
+
   }
 }
