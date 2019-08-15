@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {EmployeeService} from '../../Services/employee.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {Employee} from "../employee";
+import {FormControl, Validators} from '@angular/forms';
 
 
 @Component({
@@ -9,25 +10,17 @@ import {Employee} from "../employee";
   selector: 'app-add-employee',
   templateUrl: './addEmployee.component.html',
   styleUrls: ['./addEmployee.component.scss'],
-  animations: [
-    trigger('detailExpand', [
-      state('collapsed', style({height: '0px', minHeight: '0'})),
-      state('expanded', style({height: '*'})),
-      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
-    ]),
-  ],
 })
 
 export class AddEmployeeComponent implements OnInit{
   employees: Employee[];
-  columnsToDisplay = ['id','nombre', 'apellido', 'posicion'];
-  columnTranslated = {
-    id: 'Código Empleado',
-    nombre: 'nombre',
-    apellido: 'apellido',
-    posicion: 'posicion'
-  };
-  expandedElement: Employee | null;
+  email = new FormControl('', [Validators.required, Validators.email]);
+
+  getErrorMessage() {
+    return this.email.hasError('required') ? 'You must enter a value' :
+      this.email.hasError('email') ? 'Not a valid email' :
+        '';
+  }
 
   constructor(private employeeService: EmployeeService){
   }
@@ -42,6 +35,7 @@ export class AddEmployeeComponent implements OnInit{
   }
 
   add(value: any) {
+
 
   }
 }

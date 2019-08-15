@@ -1,4 +1,4 @@
-<div id="employee-table">
+<div class="table-list">
   <table mat-table
          [dataSource]="employees" multiTemplateDataRows
          class="mat-elevation-z8">
@@ -37,14 +37,11 @@
 
 
   <div class="plus">
-    <!-- (click) passes input value to add() and then clears the input -->
-    <!-- Mandar que cuando haga click a routerLink employeeAdd.
-    -->
-    <button mat-fab color="primary" (OnClick)="1">
-      <a routerLink="/addEmployees">
-      </a>
+    <a routerLink="/addEmployees">
+    <button mat-fab color="primary">
       <i class="material-icons">add</i>
     </button>
+    </a>
   </div>
 
 </div>
