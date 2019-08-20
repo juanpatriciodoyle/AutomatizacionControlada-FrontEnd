@@ -1,21 +1,26 @@
-<form class="example-form">
+<form class="example-form" [formGroup]="form">
   <mat-form-field class="example-full-width">
-    <input matInput placeholder="Nombre">
+    <input #name matInput placeholder="Nombre" formControlName="name">
   </mat-form-field>
 
   <mat-form-field class="example-full-width">
-    <input matInput placeholder="Apellido">
+    <input #surname matInput placeholder="Apellido" formControlName="surname">
   </mat-form-field>
 
   <mat-form-field>
-    <li *ngFor="let position of positions">
-
-    <mat-select placeholder="Posición">
-      <mat-option value=""></mat-option>
+    <mat-select #position placeholder="Posición" formControlName="position">
+      <mat-option value="BOSS">Jefe</mat-option>
+      <mat-option value="OWNER">Dueño/a</mat-option>
+      <mat-option value="TECHNICIAN">Técnico</mat-option>
+      <mat-option value="SALES">Ventas</mat-option>
     </mat-select>
-
-    </li>
   </mat-form-field>
+
+  <div class="plus">
+    <button (click)="add()">
+    <i class="material-icons">person_add</i>
+    </button>
+  </div>
 
 </form>
 

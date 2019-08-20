@@ -13,10 +13,10 @@ export class Employee{
     this.id = id;
     this.nombre = nombre;
     this.apellido = apellido;
-    this.posicion = this.enumToEnum(posicion);
+    this.posicion = this.enumToSpanish(posicion);
   }
 
-  enumToEnum(position): string {
+  enumToSpanish(position): string {
     switch (position) {
       case "BOSS":
         return "Jefe";
@@ -29,4 +29,16 @@ export class Employee{
     }
   }
 
+    enumToEnghish(position): string {
+    switch (position) {
+      case "Jefe":
+        return "BOSS";
+      case "Dueño/a":
+        return "OWNER";
+      case "Técnico":
+        return "TECHNICIAN";
+      case "Ventas":
+        return "SALES";
+    }
+  }
 }
