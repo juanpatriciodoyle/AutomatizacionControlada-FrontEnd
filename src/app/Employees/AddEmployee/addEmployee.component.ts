@@ -48,7 +48,6 @@ export class AddEmployeeComponent implements OnInit{
   add() {
     if(this.form.invalid) return;
     const data = this.form.getRawValue();
-    console.log(Employee.from(data));
-    this.employeeService.addEmployee(Employee.from(data));
+    this.employeeService.addEmployee(Employee.fromForm(data)).subscribe(employee => console.log(employee));
   }
 }

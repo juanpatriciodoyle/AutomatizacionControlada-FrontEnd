@@ -20,12 +20,12 @@ import {Employee} from "../employee";
 
 export class EmployeeComponent implements OnInit{
   employees: Employee[];
-  columnsToDisplay = ['id','nombre', 'apellido', 'posicion'];
+  columnsToDisplay = ['id','name', 'surname', 'position'];
   columnTranslated = {
     id: 'Código Empleado',
-    nombre: 'nombre',
-    apellido: 'apellido',
-    posicion: 'posicion'
+    name: 'nombre',
+    surname: 'apellido',
+    position: 'posicion'
   };
   expandedElement: Employee | null;
 
@@ -41,7 +41,4 @@ export class EmployeeComponent implements OnInit{
     this.employeeService.getEmployees().subscribe(employeesList => this.employees = employeesList.map( employee => Employee.from(employee)));
   }
 
-  add(value: any) {
-
-  }
 }

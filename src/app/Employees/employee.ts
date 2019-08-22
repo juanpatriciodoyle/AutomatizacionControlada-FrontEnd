@@ -1,22 +1,25 @@
 export class Employee{
   id: number;
-  nombre: string;
-  apellido: string;
-  posicion: string;
+  name: string;
+  surname: string;
+  position: string;
 
   static from(json: any): Employee {
-    return new Employee(json.id, json.name, json.surname, json.position);
+    return new Employee(json.id, json.name, json.surname, Employee.enumToSpanish(json.position));
   }
 
+  static fromForm(data: any): Employee {
+    return new Employee(data.id, data.name, data.surname, data.position);
+  }
 
-  constructor(id: number, nombre: string, apellido: string, posicion: string) {
+  constructor(id: number, name: string, surname: string, position: string) {
     this.id = id;
-    this.nombre = nombre;
-    this.apellido = apellido;
-    this.posicion = this.enumToSpanish(posicion);
+    this.name = name;
+    this.surname = surname;
+    this.position = position;
   }
-
-  enumToSpanish(position): string {
+  // Enum implementation, service list (add-> lo que retorna lo meto en la lista). Get by id checkeo en la lista primero y sino hago get all
+  static enumToSpanish(position: string): string {
     switch (position) {
       case "BOSS":
         return "Jefe";
@@ -29,7 +32,8 @@ export class Employee{
     }
   }
 
-    enumToEnghish(position): string {
+    static enumToEnglish(position): string {
+    debugger;
     switch (position) {
       case "Jefe":
         return "BOSS";
@@ -41,4 +45,8 @@ export class Employee{
         return "SALES";
     }
   }
+}
+
+enum Position {
+  BOSS = "Jefe"
 }
