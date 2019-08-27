@@ -1,7 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {EmployeeService} from '../../Services/employee.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {Employee} from "../employee";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {ActivatedRoute} from "@angular/router";
 
 
 @Component({
@@ -18,30 +20,37 @@ import {Employee} from "../employee";
   ],
 })
 
-export class UpdateEmployeeComponent implements OnInit{
-  employees: Employee[];
-  columnsToDisplay = ['id','nombre', 'apellido', 'posicion'];
-  columnTranslated = {
-    id: 'Código Empleado',
-    nombre: 'nombre',
-    apellido: 'apellido',
-    posicion: 'posicion'
-  };
-  expandedElement: Employee | null;
+export class UpdateEmployeeComponent implements OnInit {
+  @Input() oldEmployee: Employee;
+  id: number;
+  form: FormGroup;
 
-  constructor(private employeeService: EmployeeService){
+  constructor(private employeeService: EmployeeService, private formBuilder: FormBuilder, private route: ActivatedRoute) {
   }
 
 
   ngOnInit(): void {
-    this.getEmployees();
+    this.getEmployee();
+    this.form = this.getForm();
   }
 
-  getEmployees(): void{
-    this.employeeService.getEmployees().subscribe(employeesList => this.employees = employeesList.map( employee => Employee.from(employee)));
+  getForm(): FormGroup {
+    return this.formBuilder.group({
+      'name': ['', Validators.required],
+      'surname': ['', Validators.required],
+      'position': ['', Validators.required]
+    });
   }
 
-  add(value: any) {
-
+  getEmployee(): void {
+    this.id = +this.route.snapshot.paramMap.get('id');
+    this.employeeService.getEmployee(this.id).subscribe(employee => this.oldEmployee = employee);
   }
+
+  update(){
+    if (this.form.invalid) return;
+    const data = this.form.getRawValue();
+    this.employeeService.updateEmployee(this.id,Employee.fromForm(data)).subscribe(employee => console.log(employee));
+  }
+
 }

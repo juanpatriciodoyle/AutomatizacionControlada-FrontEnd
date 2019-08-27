@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {EmployeeService} from '../../Services/employee.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {Employee} from "../employee";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 
 @Component({
@@ -20,6 +21,7 @@ import {Employee} from "../employee";
 
 export class EmployeeComponent implements OnInit{
   employees: Employee[];
+  form: FormGroup;
   columnsToDisplay = ['id','name', 'surname', 'position'];
   columnTranslated = {
     id: 'Código Empleado',
@@ -29,16 +31,28 @@ export class EmployeeComponent implements OnInit{
   };
   expandedElement: Employee | null;
 
-  constructor(private employeeService: EmployeeService){
+  constructor(private employeeService: EmployeeService, private formBuilder: FormBuilder){
   }
 
 
   ngOnInit(): void {
     this.getEmployees();
+    this.form = this.getForm();
+  }
+
+  getForm(): FormGroup {
+    return this.formBuilder.group({
+      'name': ['', Validators.required],
+      'surname': ['', Validators.required],
+      'position': ['', Validators.required]
+    });
   }
 
   getEmployees(): void{
     this.employeeService.getEmployees().subscribe(employeesList => this.employees = employeesList.map( employee => Employee.from(employee)));
   }
 
+  delete(id: any) {
+    this.employeeService.deleteEmployee(id).subscribe();
+  }
 }

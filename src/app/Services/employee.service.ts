@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable, of} from 'rxjs';
+import {Observable, ObservedValueOf, of} from 'rxjs';
 import {Employee} from '../Employees/employee';
 import {catchError, tap} from 'rxjs/operators';
 
@@ -31,6 +31,27 @@ export class EmployeeService{
     );
   }
 
+  deleteEmployee(id : number): Observable<Employee>{
+    return this.http.delete<Employee>(this.employeesUrl+'/'+id, this.httpOptions).pipe(
+      tap(),
+      catchError(this.handleError<Employee>('deleteEmployee'))
+    );
+  }
+
+  getEmployee(id: number): Observable<Employee>{
+    return this.http.get<Employee>(this.employeesUrl+'/'+id, this.httpOptions).pipe(
+      tap(),
+      catchError(this.handleError<Employee>('getById'))
+    )
+  }
+
+  updateEmployee(id: number, employee: Employee): Observable<Employee> {
+    return this.http.put<Employee>(this.employeesUrl+'/'+id, employee, this.httpOptions).pipe(
+      tap(),
+      catchError(this.handleError<Employee>('updateEmployee'))
+    )
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
 
@@ -41,5 +62,4 @@ export class EmployeeService{
       return of(result as T);
     };
   }
-
 }

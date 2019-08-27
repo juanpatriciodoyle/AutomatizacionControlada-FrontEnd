@@ -39,14 +39,32 @@ tr.example-element-row:not(.example-expanded-row):active {
   line-height: normal;
 }
 
-.example-element-description {
-  padding: 16px;
+.modify-element {
+  padding: 20px;
 }
 
 .example-element-description-attribution {
   opacity: 0.5;
 }
 
+
+
 .plus{
+  text-align: right;
+  padding-bottom: 5px;
+}
+
+.wrapper{
+  padding: 5px;
+}
+
+.delete{
+  text-align: right;
+  float:right;
+  padding-right: 100px;
+  padding-left: 10px;
+}
+
+.update{
   text-align: right;
 }
