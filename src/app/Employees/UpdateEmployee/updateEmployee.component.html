@@ -1,23 +1,32 @@
 <form class="example-form" [formGroup]="form">
 
-  <label>{{id}}</label>
+  <div>
+    <span>Empleado con Id: {{id}}</span>
+  </div>
 
-  <mat-form-field class="example-full-width">
-    <input #name matInput placeholder="oldEmployee.name" formControlName="name">
-  </mat-form-field>
+  <div>
+    <mat-form-field class="example-full-width">
+      <input #name matInput placeholder="{{oldEmployee.name}}" formControlName="name" [defaultValue]="oldEmployee.name">
+    </mat-form-field>
+  </div>
 
-  <mat-form-field class="example-full-width">
-    <input #surname matInput placeholder="oldEmployee.surname" formControlName="surname">
-  </mat-form-field>
+  <div>
+    <mat-form-field class="example-full-width">
+      <input #surname matInput placeholder="{{oldEmployee.surname}}" formControlName="surname" [defaultValue]="oldEmployee.surname">
+    </mat-form-field>
+  </div>
 
-  <mat-form-field>
-    <mat-select #position placeholder="oldEmployee.position" formControlName="position">
-      <mat-option value="BOSS">Jefe</mat-option>
-      <mat-option value="OWNER">Dueño/a</mat-option>
-      <mat-option value="TECHNICIAN">Técnico</mat-option>
-      <mat-option value="SALES">Ventas</mat-option>
-    </mat-select>
-  </mat-form-field>
+  <div>
+    <mat-form-field>
+      <mat-select #position placeholder="{{oldEmployee.position}}" formControlName="position">
+        <mat-option value="BOSS">Jefe</mat-option>
+        <mat-option value="OWNER">Dueño/a</mat-option>
+        <mat-option value="TECHNICIAN">Técnico</mat-option>
+        <mat-option value="SALES">Ventas</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
 
   <div class="plus">
     <button (click)="update()">
