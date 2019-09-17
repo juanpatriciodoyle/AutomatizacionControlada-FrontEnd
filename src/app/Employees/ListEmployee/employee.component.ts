@@ -22,12 +22,13 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 export class EmployeeComponent implements OnInit{
   employees: Employee[];
   form: FormGroup;
-  columnsToDisplay = ['id','name', 'surname', 'position'];
+  columnsToDisplay = ['id','name', 'surname', 'position', 'options'];
   columnTranslated = {
     id: 'Código Empleado',
     name: 'nombre',
     surname: 'apellido',
-    position: 'posicion'
+    position: 'posicion',
+    options: 'opciones'
   };
   expandedElement: Employee | null;
 
@@ -53,6 +54,9 @@ export class EmployeeComponent implements OnInit{
   }
 
   delete(id: any) {
-    this.employeeService.deleteEmployee(id).subscribe();
+    this.employeeService.deleteEmployee(id).subscribe( (result) => {
+      console.log(result);
+      this.employees = this.employees.filter( (employee) => employee.id != id)
+    }, (error => console.error(error)));
   }
 }

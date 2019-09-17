@@ -5,51 +5,33 @@
          class="mat-elevation-z8">
     <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
       <th mat-header-cell *matHeaderCellDef> {{columnTranslated[column]}} </th>
-      <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
-
-    </ng-container>
-
-    <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
-    <ng-container matColumnDef="expandedDetail">
-      <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
-
-        <div class="wrapper">
-
-          <div class="delete">
-            <button mat-mini-fab color="warn" (click)="delete(element.id)"><i
-              class="material-icons">restore_from_trash</i></button>
-          </div>
-
-          <div class="update">
-            <a routerLink="/updateEmployees/{{element.id}}">
-              <button mat-mini-fab color="accent"><i class="material-icons">update</i></button>
-            </a>
-          </div>
-
+      <td mat-cell *matCellDef="let element">
+        <div *ngIf="column != 'options'">
+          {{element[column]}}
         </div>
+        <div *ngIf="column == 'options'">
+          <div class="wrapper">
+            <div class="delete">
+              <button mat-mini-fab color="warn" (click)="delete(element.id)"><i
+                class="material-icons">restore_from_trash</i></button>
+            </div>
+            <div class="update">
+              <a routerLink="/updateEmployees/{{element.id}}">
+                <button mat-mini-fab color="accent"><i class="material-icons">update</i></button>
+              </a>
+            </div>
 
-        <div class="example-element-detail"
-             [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-          <div class="example-element-diagram">
-            <div class="example-element-symbol"> {{element.id}} </div>
-            <div class="example-element-name"> {{element.nombre}} </div>
-            <div class="example-element-weight"> {{element.surname}} </div>
-            <div class="example-element-position"> {{element.position}} </div>
           </div>
-
-
         </div>
-      </td>
+       </td>
     </ng-container>
-
 
     <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
     <tr mat-row *matRowDef="let element; columns: columnsToDisplay;"
         class="example-element-row"
-        [class.example-expanded-row]="expandedElement === element"
-        (click)="expandedElement = expandedElement === element ? null : element">
+        [class.example-expanded-row]="expandedElement === element">
     </tr>
-    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+<!--    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>-->
   </table>
 
 

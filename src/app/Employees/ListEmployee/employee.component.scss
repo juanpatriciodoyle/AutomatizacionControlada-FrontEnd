@@ -56,15 +56,12 @@ tr.example-element-row:not(.example-expanded-row):active {
 
 .wrapper{
   padding: 5px;
+  display: flex;
 }
 
 .delete{
-  text-align: right;
-  float:right;
-  padding-right: 100px;
-  padding-left: 10px;
+  margin-right: 10px;
 }
 
 .update{
-  text-align: right;
 }
