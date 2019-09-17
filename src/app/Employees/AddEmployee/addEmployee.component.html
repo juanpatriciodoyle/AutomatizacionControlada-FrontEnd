@@ -17,7 +17,7 @@
   </mat-form-field>
 
   <div class="plus">
-    <button (click)="add()">
+    <button (click)="add()" [disabled]="form.invalid">
     <i class="material-icons">person_add</i>
     </button>
   </div>

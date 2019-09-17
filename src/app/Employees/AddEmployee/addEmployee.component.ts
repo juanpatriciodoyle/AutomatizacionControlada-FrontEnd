@@ -2,7 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {EmployeeService} from '../../Services/employee.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {Employee} from "../employee";
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -15,16 +16,15 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 export class AddEmployeeComponent implements OnInit{
   employees: Employee[];
   form: FormGroup;
-  email = new FormControl('', [Validators.required, Validators.email]);
   positions = ["Jefe", "Dueño/a", "Técnico", "Ventas"];
 
   getErrorMessage() {
-    return this.email.hasError('required') ? 'You must enter a value' :
-      this.email.hasError('email') ? 'Not a valid email' :
-        '';
+    const emailFormControl: AbstractControl = this.form.get('email');
+    return emailFormControl.hasError('required') ? 'blabalba' :
+      emailFormControl.hasError('email') ? 'not a valid email' : '';
   }
 
-  constructor(private employeeService: EmployeeService, private formBuilder: FormBuilder){
+  constructor(private employeeService: EmployeeService, private formBuilder: FormBuilder, private readonly route: Router){
   }
 
 
@@ -35,9 +35,10 @@ export class AddEmployeeComponent implements OnInit{
 
   getForm(): FormGroup {
     return this.formBuilder.group({
-      'name': ['', Validators.required],
-      'surname': ['', Validators.required],
-      'position': ['', Validators.required]
+      name: ['', Validators.required],
+      surname: ['', Validators.required],
+      position: ['', Validators.required],
+      email: ['', [Validators.email, Validators.required]]
     });
   }
 
@@ -48,6 +49,9 @@ export class AddEmployeeComponent implements OnInit{
   add() {
     if(this.form.invalid) return;
     const data = this.form.getRawValue();
-    this.employeeService.addEmployee(Employee.fromForm(data)).subscribe(employee => console.log(employee));
+    this.employeeService.addEmployee(Employee.fromForm(data)).subscribe(employee => {
+      console.log(employee)
+      this.route.navigate(['employees'])
+    }, error => {console.error(error)});
   }
 }
