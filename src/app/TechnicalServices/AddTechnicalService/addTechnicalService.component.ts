@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {EmployeeService} from '../../Services/employee.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {Employee} from "../employee";
+import {TechnicalService} from "../technicalService";
 import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 
@@ -9,12 +9,12 @@ import {Router} from '@angular/router';
 @Component({
 
   selector: 'app-add-employee',
-  templateUrl: './addEmployee.component.html',
-  styleUrls: ['./addEmployee.component.scss'],
+  templateUrl: './addTechnicalService.component.html',
+  styleUrls: ['./addTechnicalService.component.scss'],
 })
 
-export class AddEmployeeComponent implements OnInit{
-  employees: Employee[];
+export class AddTechnicalServiceComponent implements OnInit{
+  employees: TechnicalService[];
   form: FormGroup;
   positions = ["Jefe", "Dueño/a", "Técnico", "Ventas"];
 
@@ -43,13 +43,13 @@ export class AddEmployeeComponent implements OnInit{
   }
 
   getEmployees(): void{
-    this.employeeService.getEmployees().subscribe(employeesList => this.employees = employeesList.map( employee => Employee.from(employee)));
+    this.employeeService.getEmployees().subscribe(employeesList => this.employees = employeesList.map( employee => TechnicalService.from(employee)));
   }
 
   add() {
     if(this.form.invalid) return;
     const data = this.form.getRawValue();
-    this.employeeService.addEmployee(Employee.fromForm(data)).subscribe(employee => {
+    this.employeeService.addEmployee(TechnicalService.fromForm(data)).subscribe(employee => {
       console.log(employee);
       this.routes.navigate(['employees'])
     }, error => {console.error(error)});

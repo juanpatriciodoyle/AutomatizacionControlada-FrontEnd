@@ -1,15 +1,15 @@
 import {Component, OnInit} from '@angular/core';
 import {EmployeeService} from '../../Services/employee.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {Employee} from "../employee";
+import {TechnicalService} from "../technicalService";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 
 @Component({
 
   selector: 'app-list-employee',
-  templateUrl: './employee.component.html',
-  styleUrls: ['./employee.component.scss'],
+  templateUrl: './technicalService.component.html',
+  styleUrls: ['./technicalService.component.scss'],
   animations: [
     trigger('detailExpand', [
       state('collapsed', style({height: '0px', minHeight: '0'})),
@@ -19,8 +19,8 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
   ],
 })
 
-export class EmployeeComponent implements OnInit{
-  employees: Employee[];
+export class TechnicalServiceComponent implements OnInit{
+  employees: TechnicalService[];
   form: FormGroup;
   columnsToDisplay = ['id','name', 'surname', 'position', 'options'];
   columnTranslated = {
@@ -30,7 +30,7 @@ export class EmployeeComponent implements OnInit{
     position: 'posicion',
     options: 'opciones'
   };
-  expandedElement: Employee | null;
+  expandedElement: TechnicalService | null;
 
   constructor(private employeeService: EmployeeService, private formBuilder: FormBuilder){
   }
@@ -50,7 +50,7 @@ export class EmployeeComponent implements OnInit{
   }
 
   getEmployees(): void{
-    this.employeeService.getEmployees().subscribe(employeesList => this.employees = employeesList.map( employee => Employee.from(employee)));
+    this.employeeService.getEmployees().subscribe(employeesList => this.employees = employeesList.map( employee => TechnicalService.from(employee)));
   }
 
   delete(id: any) {
