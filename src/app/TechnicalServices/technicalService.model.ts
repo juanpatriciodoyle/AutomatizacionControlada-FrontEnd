@@ -1,3 +1,5 @@
+import {Status} from './status.enum';
+
 export class TechnicalService{
   id: number;
   employee: number;
@@ -7,16 +9,11 @@ export class TechnicalService{
   price: number;
   paymentMethod: string;
   delivered: Boolean;
-  status: string;
-
-  //     @OneToOne(cascade = CascadeType.ALL)
-  //     private Employee employee;
-  //     private Enum<Status> status;
-
+  status: Status;
 
   static from(json: any): TechnicalService {
     return new TechnicalService(json.id, json.employee, json.description, json.admissionDate,
-        json.egressDate, json.price, json.paymentMethod, json.delivered, TechnicalService.enumToSpanish(json.status));
+        json.egressDate, json.price, json.paymentMethod, json.delivered, this.stringToEnum(json.status));
   }
 
   static fromForm(data: any): TechnicalService {
@@ -24,7 +21,7 @@ export class TechnicalService{
       data.egressDate, data.price, data.paymentMethod, data.delivered, data.status);
   }
 
-  constructor(id: number, employee: number, description: string, admissionDate: Date, egressDate: Date, price: number, paymentMethod: string, delivered: Boolean, status: string) {
+  constructor(id: number, employee: number, description: string, admissionDate: Date, egressDate: Date, price: number, paymentMethod: string, delivered: Boolean, status: Status) {
     this.id = id;
     this.employee = employee;
     this.description = description;
@@ -37,30 +34,42 @@ export class TechnicalService{
   }
 
 // Enum implementation, service list (add-> lo que retorna lo meto en la lista). Get by id checkeo en la lista primero y sino hago get all
-  static enumToSpanish(position: string): string {
-    switch (position) {
-      case "ONSERVICE":
+  static enumToSpanish(status: Status): string {
+    switch (status) {
+      case 0:
         return "En servicio";
-      case "DELAYED":
+      case 1:
         return "Retrasada";
-      case "READY":
+      case 2:
         return "Lista";
-      case "DELIVERED":
+      case 3:
         return "Entregada";
     }
   }
 
-    static enumToEnglish(position): string {
-    debugger;
-    switch (position) {
-      case "En servicio":
+    static enumToEnglish(status: Status): string {
+    switch (status) {
+      case 0:
         return "ONSERVICE";
-      case "Retrasada":
+      case 1:
         return "DELAYED";
-      case "Lista":
+      case 2:
         return "READY";
-      case "Entregada":
+      case 3:
         return "DELIVERED";
+    }
+  }
+
+  static stringToEnum(status: string): Status{
+    switch (status) {
+      case "ONSERVICE":
+        return 0;
+      case "DELAYED":
+        return 1;
+      case "READY":
+        return 2;
+      case "DELIVERED":
+        return 3;
     }
   }
 }

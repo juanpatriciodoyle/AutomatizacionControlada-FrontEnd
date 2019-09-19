@@ -1,52 +1,63 @@
-export class Employee{
+import {Position} from './position.enum';
+
+export class Employee {
   id: number;
   name: string;
   surname: string;
-  position: string;
+  position: Position;
 
   static from(json: any): Employee {
-    return new Employee(json.id, json.name, json.surname, Employee.enumToSpanish(json.position));
+    return new Employee(json.id, json.name, json.surname, this.stringToEnum(json.position));
   }
 
   static fromForm(data: any): Employee {
     return new Employee(data.id, data.name, data.surname, data.position);
   }
 
-  constructor(id: number, name: string, surname: string, position: string) {
+  constructor(id: number, name: string, surname: string, position: Position) {
     this.id = id;
     this.name = name;
     this.surname = surname;
     this.position = position;
   }
+
   // Enum implementation, service list (add-> lo que retorna lo meto en la lista). Get by id checkeo en la lista primero y sino hago get all
-  static enumToSpanish(position: string): string {
+  static enumToSpanish(position: Position): string {
     switch (position) {
-      case "BOSS":
+      case 0:
         return "Jefe";
-      case "OWNER":
-        return "Dueño/a";
-      case "TECHNICIAN":
+      case 1:
+        return "Dueño";
+      case 2:
         return "Técnico";
-      case "SALES":
+      case 3:
         return "Ventas";
     }
   }
 
-    static enumToEnglish(position): string {
-    debugger;
+  static enumToEnglish(position: Position): string {
     switch (position) {
-      case "Jefe":
+      case 0:
         return "BOSS";
-      case "Dueño/a":
+      case 1:
         return "OWNER";
-      case "Técnico":
+      case 2:
         return "TECHNICIAN";
-      case "Ventas":
+      case 3:
         return "SALES";
     }
   }
-}
 
-enum Position {
-  BOSS = "Jefe"
+  static stringToEnum(position: string): Position {
+    switch (position) {
+      case "BOSS":
+        return 0;
+      case "OWNER":
+        return 1;
+      case "TECHNICIAN":
+        return 2;
+      case "SALES":
+        return 3;
+    }
+  }
 }

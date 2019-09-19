@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {EmployeeService} from '../../Services/employee.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {TechnicalService} from "../technicalService";
+import {TechnicalService} from "../technicalService.model";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 
@@ -50,7 +50,9 @@ export class TechnicalServiceComponent implements OnInit{
   }
 
   getEmployees(): void{
-    this.employeeService.getEmployees().subscribe(employeesList => this.employees = employeesList.map( employee => TechnicalService.from(employee)));
+    this.employeeService.getEmployees().subscribe(employeesList => this.employees = employeesList.map( employee =>
+      TechnicalService.from(employee)
+    ));
   }
 
   delete(id: any) {
@@ -59,4 +61,5 @@ export class TechnicalServiceComponent implements OnInit{
       this.employees = this.employees.filter( (employee) => employee.id != id)
     }, (error => console.error(error)));
   }
+
 }

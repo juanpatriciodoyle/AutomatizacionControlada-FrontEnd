@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {EmployeeService} from '../../Services/employee.service';
-import {animate, state, style, transition, trigger} from '@angular/animations';
-import {TechnicalService} from "../technicalService";
+import {TechnicalService} from "../technicalService.model";
 import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 
@@ -46,12 +45,12 @@ export class AddTechnicalServiceComponent implements OnInit{
     this.employeeService.getEmployees().subscribe(employeesList => this.employees = employeesList.map( employee => TechnicalService.from(employee)));
   }
 
-  add() {
-    if(this.form.invalid) return;
-    const data = this.form.getRawValue();
-    this.employeeService.addEmployee(TechnicalService.fromForm(data)).subscribe(employee => {
-      console.log(employee);
-      this.routes.navigate(['employees'])
-    }, error => {console.error(error)});
-  }
+  // add() {
+  //   if(this.form.invalid) return;
+  //   const data = this.form.getRawValue();
+  //   this.employeeService.addEmployee(TechnicalService.fromForm(data)).subscribe(employee => {
+  //     console.log(employee);
+  //     this.routes.navigate(['employees'])
+  //   }, error => {console.error(error)});
+  // }
 }

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {EmployeeService} from '../../Services/employee.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {Employee} from "../employee";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 
 @Component({
@@ -43,7 +43,8 @@ export class EmployeeComponent implements OnInit{
 
   getForm(): FormGroup {
     return this.formBuilder.group({
-      'name': ['', Validators.required],
+      // Todo hacer todos los validators y forms controls asi
+      name: new FormControl('', [Validators.required]),
       'surname': ['', Validators.required],
       'position': ['', Validators.required]
     });

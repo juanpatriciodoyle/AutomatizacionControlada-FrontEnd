@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {EmployeeService} from '../../Services/employee.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {TechnicalService} from "../technicalService";
+import {TechnicalService} from "../technicalService.model";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from '@angular/router';
 
