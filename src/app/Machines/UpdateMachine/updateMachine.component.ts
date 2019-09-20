@@ -1,14 +1,14 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {EmployeeService} from '../../Services/employee.service';
+import {MachineService} from '../../Services/machine.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {Machine} from "../machine";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from '@angular/router';
+import {MachineModel} from "../machine.model";
 
 
 @Component({
 
-  selector: 'app-update-employee',
+  selector: 'app-update-machine',
   templateUrl: './updateMachine.component.html',
   styleUrls: ['./updateMachine.component.scss'],
   animations: [
@@ -21,7 +21,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 
 export class UpdateMachineComponent implements OnInit {
-  @Input() oldEmployee: Machine;
+  @Input() oldMachine: MachineModel;
   id: number;
   form: FormGroup;
   positionTranslated = {
@@ -31,12 +31,12 @@ export class UpdateMachineComponent implements OnInit {
     SALES: 'Ventas',
   };
 
-  constructor(private employeeService: EmployeeService, private formBuilder: FormBuilder, private route: ActivatedRoute, private routes: Router) {
+  constructor(private machineService: MachineService, private formBuilder: FormBuilder, private route: ActivatedRoute, private routes: Router) {
   }
 
 
   ngOnInit(): void {
-    this.getEmployee();
+    this.getMachine();
     this.form = this.getForm();
   }
 
@@ -48,17 +48,17 @@ export class UpdateMachineComponent implements OnInit {
     });
   }
 
-  getEmployee(): void {
+  getMachine(): void {
     this.id = +this.route.snapshot.paramMap.get('id');
-    this.employeeService.getEmployee(this.id).subscribe(employee => this.oldEmployee = employee);
+    this.machineService.getMachine(this.id).subscribe(machine => this.oldMachine = machine);
   }
 
   update(){
     if (this.form.invalid) return;
     const data = this.form.getRawValue();
-    this.employeeService.updateEmployee(this.id,Machine.fromForm(data)).subscribe(employee => {
-      console.log(employee);
-      this.routes.navigate(['employees'])
+    this.machineService.updateMachine(this.id,MachineModel.fromForm(data)).subscribe(machine => {
+      console.log(machine);
+      this.routes.navigate(['machines'])
     }, error => {console.error(error)}
     );
   }

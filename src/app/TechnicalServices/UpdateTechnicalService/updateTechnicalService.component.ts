@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {EmployeeService} from '../../Services/employee.service';
+import {TechnicalServiceService} from '../../Services/technicalService.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {TechnicalService} from "../technicalService.model";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
@@ -8,7 +8,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
 
-  selector: 'app-update-employee',
+  selector: 'app-update-technicalService',
   templateUrl: './updateTechnicalService.component.html',
   styleUrls: ['./updateTechnicalService.component.scss'],
   animations: [
@@ -21,7 +21,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 
 export class UpdateTechnicalServiceComponent implements OnInit {
-  @Input() oldEmployee: TechnicalService;
+  @Input() oldTechnicalService: TechnicalService;
   id: number;
   form: FormGroup;
   positionTranslated = {
@@ -31,12 +31,12 @@ export class UpdateTechnicalServiceComponent implements OnInit {
     SALES: 'Ventas',
   };
 
-  constructor(private employeeService: EmployeeService, private formBuilder: FormBuilder, private route: ActivatedRoute, private routes: Router) {
+  constructor(private technicalServiceService: TechnicalServiceService, private formBuilder: FormBuilder, private route: ActivatedRoute, private routes: Router) {
   }
 
 
   ngOnInit(): void {
-    this.getEmployee();
+    this.getTechnicalService();
     this.form = this.getForm();
   }
 
@@ -48,17 +48,17 @@ export class UpdateTechnicalServiceComponent implements OnInit {
     });
   }
 
-  getEmployee(): void {
+  getTechnicalService(): void {
     this.id = +this.route.snapshot.paramMap.get('id');
-    this.employeeService.getEmployee(this.id).subscribe(employee => this.oldEmployee = employee);
+    this.technicalServiceService.getTechnicalService(this.id).subscribe(technicalService => this.oldTechnicalService = technicalService);
   }
 
   update(){
     if (this.form.invalid) return;
     const data = this.form.getRawValue();
-    this.employeeService.updateEmployee(this.id,TechnicalService.fromForm(data)).subscribe(employee => {
-      console.log(employee);
-      this.routes.navigate(['employees'])
+    this.technicalServiceService.updateTechnicalService(this.id,TechnicalService.fromForm(data)).subscribe(technicalService => {
+      console.log(technicalService);
+      this.routes.navigate(['technicalServices'])
     }, error => {console.error(error)}
     );
   }

@@ -1,9 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {EmployeeService} from '../../Services/employee.service';
-import {animate, state, style, transition, trigger} from '@angular/animations';
-import {Employee} from "../employee";
-import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
+import {EmployeeModel} from "../employee.model";
 
 
 @Component({
@@ -14,9 +13,8 @@ import {Router} from '@angular/router';
 })
 
 export class AddEmployeeComponent implements OnInit{
-  employees: Employee[];
+  employees: EmployeeModel[];
   form: FormGroup;
-  positions = ["Jefe", "Dueño/a", "Técnico", "Ventas"];
 
   // getErrorMessage() {
   //   const emailFormControl: AbstractControl = this.form.get('email');
@@ -35,21 +33,21 @@ export class AddEmployeeComponent implements OnInit{
 
   getForm(): FormGroup {
     return this.formBuilder.group({
-      name: ['', Validators.required],
-      surname: ['', Validators.required],
-      position: ['', Validators.required],
+      name: new FormControl('', [Validators.required]),
+      surname: new FormControl('', [Validators.required]),
+      position: new FormControl('', [Validators.required]),
       // email: ['', [Validators.email, Validators.required]]
     });
   }
 
   getEmployees(): void{
-    this.employeeService.getEmployees().subscribe(employeesList => this.employees = employeesList.map( employee => Employee.from(employee)));
+    this.employeeService.getEmployees().subscribe(employeesList => this.employees = employeesList.map( employee => EmployeeModel.from(employee)));
   }
 
   add() {
     if(this.form.invalid) return;
     const data = this.form.getRawValue();
-    this.employeeService.addEmployee(Employee.fromForm(data)).subscribe(employee => {
+    this.employeeService.addEmployee(EmployeeModel.fromForm(data)).subscribe(employee => {
       console.log(employee);
       this.routes.navigate(['employees'])
     }, error => {console.error(error)});

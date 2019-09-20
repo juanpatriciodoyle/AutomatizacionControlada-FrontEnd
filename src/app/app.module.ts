@@ -18,7 +18,6 @@ import {UpdateTechnicalServiceComponent} from './TechnicalServices/UpdateTechnic
 import {MachineComponent} from './Machines/ListMachine/machine.component';
 import {AddMachineComponent} from './Machines/AddMachine/addMachine.component';
 import {UpdateMachineComponent} from './Machines/UpdateMachine/updateMachine.component';
-import {PositionToStringPipe} from './Employees/positionToString.pipe';
 
 @NgModule({
   declarations: [
@@ -34,9 +33,7 @@ import {PositionToStringPipe} from './Employees/positionToString.pipe';
     UpdateTechnicalServiceComponent,
     MachineComponent,
     AddMachineComponent,
-    UpdateMachineComponent,
-    PositionToStringPipe,
-    PositionToStringPipe
+    UpdateMachineComponent
 
   ],
   imports: [

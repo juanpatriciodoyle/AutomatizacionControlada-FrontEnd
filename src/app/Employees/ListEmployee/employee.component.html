@@ -7,7 +7,7 @@
       <th mat-header-cell *matHeaderCellDef> {{columnTranslated[column]}} </th>
       <td mat-cell *matCellDef="let element">
         <div *ngIf="column != 'options'">
-          {{column === 'position' ? (element.position |positionToStringPipe) : element[column]}}
+          {{column === 'position' ? (element.position) : element[column]}}
         </div>
         <div *ngIf="column == 'options'">
           <div class="wrapper">
@@ -29,7 +29,7 @@
     <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
     <tr mat-row *matRowDef="let element; columns: columnsToDisplay;"
         class="example-element-row"
-        [class.example-expanded-row]="expandedElement === element">
+        [class.example-expanded-row]="element">
     </tr>
   </table>
 

@@ -1,9 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {EmployeeService} from '../../Services/employee.service';
+import {ClientService} from '../../Services/client.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {Client} from "../client";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from '@angular/router';
+import {ClientModel} from "../client.model";
 
 
 @Component({
@@ -21,7 +21,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 
 export class UpdateClientComponent implements OnInit {
-  @Input() oldEmployee: Client;
+  @Input() oldClient: ClientModel;
   id: number;
   form: FormGroup;
   positionTranslated = {
@@ -31,12 +31,12 @@ export class UpdateClientComponent implements OnInit {
     SALES: 'Ventas',
   };
 
-  constructor(private employeeService: EmployeeService, private formBuilder: FormBuilder, private route: ActivatedRoute, private routes: Router) {
+  constructor(private clientService: ClientService, private formBuilder: FormBuilder, private route: ActivatedRoute, private routes: Router) {
   }
 
 
   ngOnInit(): void {
-    this.getEmployee();
+    this.getClient();
     this.form = this.getForm();
   }
 
@@ -48,17 +48,17 @@ export class UpdateClientComponent implements OnInit {
     });
   }
 
-  getEmployee(): void {
+  getClient(): void {
     this.id = +this.route.snapshot.paramMap.get('id');
-    this.employeeService.getEmployee(this.id).subscribe(employee => this.oldEmployee = employee);
+    this.clientService.getClient(this.id).subscribe(client => this.oldClient = client);
   }
 
   update(){
     if (this.form.invalid) return;
     const data = this.form.getRawValue();
-    this.employeeService.updateEmployee(this.id,Client.fromForm(data)).subscribe(employee => {
-      console.log(employee);
-      this.routes.navigate(['employees'])
+    this.clientService.updateClient(this.id,ClientModel.fromForm(data)).subscribe(client => {
+      console.log(client);
+      this.routes.navigate(['clients'])
     }, error => {console.error(error)}
     );
   }

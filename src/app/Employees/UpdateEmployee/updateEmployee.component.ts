@@ -1,9 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {EmployeeService} from '../../Services/employee.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {Employee} from "../employee";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from '@angular/router';
+import {EmployeeModel} from "../employee.model";
 
 
 @Component({
@@ -21,7 +21,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 
 export class UpdateEmployeeComponent implements OnInit {
-  @Input() oldEmployee: Employee;
+  @Input() oldEmployee: EmployeeModel;
   id: number;
   form: FormGroup;
   positionTranslated = {
@@ -42,9 +42,9 @@ export class UpdateEmployeeComponent implements OnInit {
 
   getForm(): FormGroup {
     return this.formBuilder.group({
-      'name': ['', Validators.required],
-      'surname': ['', Validators.required],
-      'position': ['', Validators.required]
+      name: new FormControl('', [Validators.required]),
+      surname: new FormControl('', [Validators.required]),
+      position: new FormControl('', [Validators.required]),
     });
   }
 
@@ -56,8 +56,7 @@ export class UpdateEmployeeComponent implements OnInit {
   update(){
     if (this.form.invalid) return;
     const data = this.form.getRawValue();
-    this.employeeService.updateEmployee(this.id,Employee.fromForm(data)).subscribe(employee => {
-      console.log(employee);
+    this.employeeService.updateEmployee(this.id,EmployeeModel.fromForm(data)).subscribe(employee => {
       this.routes.navigate(['employees'])
     }, error => {console.error(error)}
     );

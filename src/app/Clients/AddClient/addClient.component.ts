@@ -1,9 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {EmployeeService} from '../../Services/employee.service';
-import {animate, state, style, transition, trigger} from '@angular/animations';
-import {Client} from "../client";
-import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {ClientService} from '../../Services/client.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
+import {ClientModel} from "../client.model";
 
 
 @Component({
@@ -14,7 +13,7 @@ import {Router} from '@angular/router';
 })
 
 export class AddClientComponent implements OnInit{
-  employees: Client[];
+  clients: ClientModel[];
   form: FormGroup;
   positions = ["Jefe", "Dueño/a", "Técnico", "Ventas"];
 
@@ -24,12 +23,12 @@ export class AddClientComponent implements OnInit{
   //     emailFormControl.hasError('email') ? 'not a valid email' : '';
   // }
 
-  constructor(private employeeService: EmployeeService, private formBuilder: FormBuilder, private readonly routes: Router){
+  constructor(private clientService: ClientService, private formBuilder: FormBuilder, private readonly routes: Router){
   }
 
 
   ngOnInit(): void {
-    this.getEmployees();
+    this.getClients();
     this.form = this.getForm();
   }
 
@@ -42,16 +41,16 @@ export class AddClientComponent implements OnInit{
     });
   }
 
-  getEmployees(): void{
-    this.employeeService.getEmployees().subscribe(employeesList => this.employees = employeesList.map( employee => Client.from(employee)));
+  getClients(): void{
+    this.clientService.getClients().subscribe(clientsList => this.clients = clientsList.map( client => ClientModel.from(client)));
   }
 
   add() {
     if(this.form.invalid) return;
     const data = this.form.getRawValue();
-    this.employeeService.addEmployee(Client.fromForm(data)).subscribe(employee => {
-      console.log(employee);
-      this.routes.navigate(['employees'])
+    this.clientService.addClient(ClientModel.fromForm(data)).subscribe(client => {
+      console.log(client);
+      this.routes.navigate(['clients'])
     }, error => {console.error(error)});
   }
 }

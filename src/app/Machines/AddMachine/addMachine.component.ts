@@ -1,20 +1,19 @@
 import {Component, OnInit} from '@angular/core';
-import {EmployeeService} from '../../Services/employee.service';
-import {animate, state, style, transition, trigger} from '@angular/animations';
-import {Machine} from "../machine";
-import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {MachineService} from '../../Services/machine.service';
+import {FormBuilder,  FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
+import {MachineModel} from "../machine.model";
 
 
 @Component({
 
-  selector: 'app-add-employee',
+  selector: 'app-add-machine',
   templateUrl: './addMachine.component.html',
   styleUrls: ['./addMachine.component.scss'],
 })
 
 export class AddMachineComponent implements OnInit{
-  employees: Machine[];
+  machines: MachineModel[];
   form: FormGroup;
   positions = ["Jefe", "Dueño/a", "Técnico", "Ventas"];
 
@@ -24,12 +23,12 @@ export class AddMachineComponent implements OnInit{
   //     emailFormControl.hasError('email') ? 'not a valid email' : '';
   // }
 
-  constructor(private employeeService: EmployeeService, private formBuilder: FormBuilder, private readonly routes: Router){
+  constructor(private machineService: MachineService, private formBuilder: FormBuilder, private readonly routes: Router){
   }
 
 
   ngOnInit(): void {
-    this.getEmployees();
+    this.getMachines();
     this.form = this.getForm();
   }
 
@@ -42,16 +41,16 @@ export class AddMachineComponent implements OnInit{
     });
   }
 
-  getEmployees(): void{
-    this.employeeService.getEmployees().subscribe(employeesList => this.employees = employeesList.map( employee => Machine.from(employee)));
+  getMachines(): void{
+    this.machineService.getMachines().subscribe(machinesList => this.machines = machinesList.map( machine => MachineModel.from(machine)));
   }
 
   add() {
     if(this.form.invalid) return;
     const data = this.form.getRawValue();
-    this.employeeService.addEmployee(Machine.fromForm(data)).subscribe(employee => {
-      console.log(employee);
-      this.routes.navigate(['employees'])
+    this.machineService.addMachine(MachineModel.fromForm(data)).subscribe(machine => {
+      console.log(machine);
+      this.routes.navigate(['machines'])
     }, error => {console.error(error)});
   }
 }

@@ -1,20 +1,20 @@
-import {Position} from './position.enum';
+import {PositionEnum} from "./position.enum";
 
-export class Employee {
+export class EmployeeModel {
   id: number;
   name: string;
   surname: string;
-  position: Position;
+  position: any;
 
-  static from(json: any): Employee {
-    return new Employee(json.id, json.name, json.surname, this.stringToEnum(json.position));
+  static from(json: any): EmployeeModel {
+    return new EmployeeModel(json.id, json.name, json.surname, this.stringToEnum(json.position));
   }
 
-  static fromForm(data: any): Employee {
-    return new Employee(data.id, data.name, data.surname, data.position);
+  static fromForm(data: any): EmployeeModel {
+    return new EmployeeModel(data.id, data.name, data.surname, data.position);
   }
 
-  constructor(id: number, name: string, surname: string, position: Position) {
+  constructor(id: number, name: string, surname: string, position: PositionEnum) {
     this.id = id;
     this.name = name;
     this.surname = surname;
@@ -22,7 +22,7 @@ export class Employee {
   }
 
   // Enum implementation, service list (add-> lo que retorna lo meto en la lista). Get by id checkeo en la lista primero y sino hago get all
-  static enumToSpanish(position: Position): string {
+  static enumToSpanish(position: PositionEnum): string {
     switch (position) {
       case 0:
         return "Jefe";
@@ -35,7 +35,7 @@ export class Employee {
     }
   }
 
-  static enumToEnglish(position: Position): string {
+  static enumToEnglish(position: PositionEnum): string {
     switch (position) {
       case 0:
         return "BOSS";
@@ -48,7 +48,7 @@ export class Employee {
     }
   }
 
-  static stringToEnum(position: string): Position {
+  static stringToEnum(position: string): PositionEnum {
     switch (position) {
       case "BOSS":
         return 0;

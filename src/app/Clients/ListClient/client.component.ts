@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {EmployeeService} from '../../Services/employee.service';
+import {ClientService} from '../../Services/client.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {Client} from "../client";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {ClientModel} from "../client.model";
 
 
 @Component({
@@ -20,7 +20,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 })
 
 export class ClientComponent implements OnInit{
-  employees: Client[];
+  clients: ClientModel[];
   form: FormGroup;
   columnsToDisplay = ['id','name', 'surname', 'position', 'options'];
   columnTranslated = {
@@ -30,14 +30,14 @@ export class ClientComponent implements OnInit{
     position: 'posicion',
     options: 'opciones'
   };
-  expandedElement: Client | null;
+  expandedElement: ClientModel | null;
 
-  constructor(private employeeService: EmployeeService, private formBuilder: FormBuilder){
+  constructor(private clientService: ClientService, private formBuilder: FormBuilder){
   }
 
 
   ngOnInit(): void {
-    this.getEmployees();
+    this.getClients();
     this.form = this.getForm();
   }
 
@@ -49,14 +49,14 @@ export class ClientComponent implements OnInit{
     });
   }
 
-  getEmployees(): void{
-    this.employeeService.getEmployees().subscribe(employeesList => this.employees = employeesList.map( employee => Client.from(employee)));
+  getClients(): void{
+    this.clientService.getClients().subscribe(clientsList => this.clients = clientsList.map( client => ClientModel.from(client)));
   }
 
   delete(id: any) {
-    this.employeeService.deleteEmployee(id).subscribe( (result) => {
+    this.clientService.deleteClient(id).subscribe( (result) => {
       console.log(result);
-      this.employees = this.employees.filter( (employee) => employee.id != id)
+      this.clients = this.clients.filter( (client) => client.id != id)
     }, (error => console.error(error)));
   }
 }

@@ -1,15 +1,15 @@
-export class Machine{
+export class ClientModel{
   id: number;
   name: string;
   surname: string;
   position: string;
 
-  static from(json: any): Machine {
-    return new Machine(json.id, json.name, json.surname, Machine.enumToSpanish(json.position));
+  static from(json: any): ClientModel {
+    return new ClientModel(json.id, json.name, json.surname, ClientModel.enumToSpanish(json.position));
   }
 
-  static fromForm(data: any): Machine {
-    return new Machine(data.id, data.name, data.surname, data.position);
+  static fromForm(data: any): ClientModel {
+    return new ClientModel(data.id, data.name, data.surname, data.position);
   }
 
   constructor(id: number, name: string, surname: string, position: string) {

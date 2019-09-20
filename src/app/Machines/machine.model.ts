@@ -1,15 +1,15 @@
-export class Client{
+export class MachineModel{
   id: number;
   name: string;
   surname: string;
   position: string;
 
-  static from(json: any): Client {
-    return new Client(json.id, json.name, json.surname, Client.enumToSpanish(json.position));
+  static from(json: any): MachineModel {
+    return new MachineModel(json.id, json.name, json.surname, MachineModel.enumToSpanish(json.position));
   }
 
-  static fromForm(data: any): Client {
-    return new Client(data.id, data.name, data.surname, data.position);
+  static fromForm(data: any): MachineModel {
+    return new MachineModel(data.id, data.name, data.surname, data.position);
   }
 
   constructor(id: number, name: string, surname: string, position: string) {
@@ -45,8 +45,4 @@ export class Client{
         return "SALES";
     }
   }
-}
-
-enum Position {
-  BOSS = "Jefe"
 }

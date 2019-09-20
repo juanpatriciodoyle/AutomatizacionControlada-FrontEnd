@@ -1,4 +1,4 @@
-import {Status} from './status.enum';
+import {StatusEnum} from './status.enum';
 
 export class TechnicalService{
   id: number;
@@ -9,7 +9,7 @@ export class TechnicalService{
   price: number;
   paymentMethod: string;
   delivered: Boolean;
-  status: Status;
+  status: StatusEnum;
 
   static from(json: any): TechnicalService {
     return new TechnicalService(json.id, json.employee, json.description, json.admissionDate,
@@ -21,7 +21,7 @@ export class TechnicalService{
       data.egressDate, data.price, data.paymentMethod, data.delivered, data.status);
   }
 
-  constructor(id: number, employee: number, description: string, admissionDate: Date, egressDate: Date, price: number, paymentMethod: string, delivered: Boolean, status: Status) {
+  constructor(id: number, employee: number, description: string, admissionDate: Date, egressDate: Date, price: number, paymentMethod: string, delivered: Boolean, status: StatusEnum) {
     this.id = id;
     this.employee = employee;
     this.description = description;
@@ -34,7 +34,7 @@ export class TechnicalService{
   }
 
 // Enum implementation, service list (add-> lo que retorna lo meto en la lista). Get by id checkeo en la lista primero y sino hago get all
-  static enumToSpanish(status: Status): string {
+  static enumToSpanish(status: StatusEnum): string {
     switch (status) {
       case 0:
         return "En servicio";
@@ -47,7 +47,7 @@ export class TechnicalService{
     }
   }
 
-    static enumToEnglish(status: Status): string {
+    static enumToEnglish(status: StatusEnum): string {
     switch (status) {
       case 0:
         return "ONSERVICE";
@@ -60,7 +60,7 @@ export class TechnicalService{
     }
   }
 
-  static stringToEnum(status: string): Status{
+  static stringToEnum(status: string): StatusEnum{
     switch (status) {
       case "ONSERVICE":
         return 0;

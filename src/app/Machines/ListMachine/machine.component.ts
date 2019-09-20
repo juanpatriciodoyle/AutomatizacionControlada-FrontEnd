@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {EmployeeService} from '../../Services/employee.service';
+import {MachineService} from '../../Services/machine.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {Machine} from "../machine";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {MachineModel} from "../machine.model";
 
 
 @Component({
 
-  selector: 'app-list-employee',
+  selector: 'app-list-machine',
   templateUrl: './machine.component.html',
   styleUrls: ['./machine.component.scss'],
   animations: [
@@ -20,7 +20,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 })
 
 export class MachineComponent implements OnInit{
-  employees: Machine[];
+  machines: MachineModel[];
   form: FormGroup;
   columnsToDisplay = ['id','name', 'surname', 'position', 'options'];
   columnTranslated = {
@@ -30,14 +30,14 @@ export class MachineComponent implements OnInit{
     position: 'posicion',
     options: 'opciones'
   };
-  expandedElement: Machine | null;
+  expandedElement: MachineModel | null;
 
-  constructor(private employeeService: EmployeeService, private formBuilder: FormBuilder){
+  constructor(private machineService: MachineService, private formBuilder: FormBuilder){
   }
 
 
   ngOnInit(): void {
-    this.getEmployees();
+    this.getMachines();
     this.form = this.getForm();
   }
 
@@ -49,14 +49,14 @@ export class MachineComponent implements OnInit{
     });
   }
 
-  getEmployees(): void{
-    this.employeeService.getEmployees().subscribe(employeesList => this.employees = employeesList.map( employee => Machine.from(employee)));
+  getMachines(): void{
+    this.machineService.getMachines().subscribe(machinesList => this.machines = machinesList.map( machine => MachineModel.from(machine)));
   }
 
   delete(id: any) {
-    this.employeeService.deleteEmployee(id).subscribe( (result) => {
+    this.machineService.deleteMachine(id).subscribe( (result) => {
       console.log(result);
-      this.employees = this.employees.filter( (employee) => employee.id != id)
+      this.machines = this.machines.filter( (machine) => machine.id != id)
     }, (error => console.error(error)));
   }
 }

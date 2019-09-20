@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {EmployeeService} from '../../Services/employee.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {Employee} from "../employee";
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {EmployeeModel} from "../employee.model";
 
 
 @Component({
@@ -20,7 +20,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 })
 
 export class EmployeeComponent implements OnInit{
-  employees: Employee[];
+  employees: EmployeeModel[];
   form: FormGroup;
   columnsToDisplay = ['id','name', 'surname', 'position', 'options'];
   columnTranslated = {
@@ -30,7 +30,6 @@ export class EmployeeComponent implements OnInit{
     position: 'posicion',
     options: 'opciones'
   };
-  expandedElement: Employee | null;
 
   constructor(private employeeService: EmployeeService, private formBuilder: FormBuilder){
   }
@@ -43,15 +42,18 @@ export class EmployeeComponent implements OnInit{
 
   getForm(): FormGroup {
     return this.formBuilder.group({
-      // Todo hacer todos los validators y forms controls asi
       name: new FormControl('', [Validators.required]),
-      'surname': ['', Validators.required],
-      'position': ['', Validators.required]
+      surname: new FormControl('', [Validators.required]),
+      position: new FormControl('', [Validators.required]),
     });
   }
 
   getEmployees(): void{
-    this.employeeService.getEmployees().subscribe(employeesList => this.employees = employeesList.map( employee => Employee.from(employee)));
+    this.employeeService.getEmployees().subscribe(employeesList => this.employees = employeesList.map( employee =>  {
+      const e = EmployeeModel.from(employee);
+      e.position = EmployeeModel.enumToSpanish(e.position);
+      return e;
+    }));
   }
 
   delete(id: any) {
