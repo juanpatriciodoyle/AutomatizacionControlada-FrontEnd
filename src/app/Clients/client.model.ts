@@ -33,7 +33,6 @@ export class ClientModel{
   }
 
     static enumToEnglish(position): string {
-    debugger;
     switch (position) {
       case "Jefe":
         return "BOSS";
