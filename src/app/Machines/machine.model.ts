@@ -1,47 +1,23 @@
 export class MachineModel{
   id: number;
-  name: string;
-  surname: string;
-  position: string;
+  internalCode: string;
+  brand: string;
+  model: string;
+  boughtHere: boolean;
 
   static from(json: any): MachineModel {
-    return new MachineModel(json.id, json.name, json.surname, MachineModel.enumToSpanish(json.position));
+    return new MachineModel(json.id, json.internalCode, json.brand, json.model, json.boughtHere);
   }
 
   static fromForm(data: any): MachineModel {
-    return new MachineModel(data.id, data.name, data.surname, data.position);
+    return new MachineModel(data.id, data.internalCode, data.brand, data.model, data.boughtHere);
   }
 
-  constructor(id: number, name: string, surname: string, position: string) {
+  constructor(id: number, internalCode: string, brand: string, model: string, boughtHere: boolean) {
     this.id = id;
-    this.name = name;
-    this.surname = surname;
-    this.position = position;
-  }
-  // Enum implementation, service list (add-> lo que retorna lo meto en la lista). Get by id checkeo en la lista primero y sino hago get all
-  static enumToSpanish(position: string): string {
-    switch (position) {
-      case "BOSS":
-        return "Jefe";
-      case "OWNER":
-        return "Dueño/a";
-      case "TECHNICIAN":
-        return "Técnico";
-      case "SALES":
-        return "Ventas";
-    }
-  }
-
-    static enumToEnglish(position): string {
-    switch (position) {
-      case "Jefe":
-        return "BOSS";
-      case "Dueño/a":
-        return "OWNER";
-      case "Técnico":
-        return "TECHNICIAN";
-      case "Ventas":
-        return "SALES";
-    }
+    this.internalCode = internalCode;
+    this.brand = brand;
+    this.model = model;
+    this.boughtHere = boughtHere;
   }
 }

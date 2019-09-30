@@ -20,7 +20,7 @@ export class ClientService{
   getClients(): Observable<ClientModel[]> {
     return this.http.get<ClientModel[]>(this.clientsUrl).pipe(
       tap(),
-      catchError(this.handleError<ClientModel[]>('getClient', []))
+      catchError(this.handleError<ClientModel[]>('getClients', []))
     );
   }
 

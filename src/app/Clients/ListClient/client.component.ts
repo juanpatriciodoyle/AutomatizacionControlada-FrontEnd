@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ClientService} from '../../Services/client.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormGroup} from '@angular/forms';
 import {ClientModel} from "../client.model";
 
 
@@ -22,40 +22,33 @@ import {ClientModel} from "../client.model";
 export class ClientComponent implements OnInit{
   clients: ClientModel[];
   form: FormGroup;
-  columnsToDisplay = ['id','name', 'surname', 'position', 'options'];
+  columnsToDisplay = ['id', 'name', 'surname', 'mail', 'phone1', 'phone2', 'options'];
   columnTranslated = {
-    id: 'Código Empleado',
+    id: 'Código Cliente',
     name: 'nombre',
     surname: 'apellido',
-    position: 'posicion',
+    mail: 'correo electrónico',
+    phone1: 'teléfono',
+    phone2: 'teléfono alternativo',
     options: 'opciones'
+
   };
-  expandedElement: ClientModel | null;
 
-  constructor(private clientService: ClientService, private formBuilder: FormBuilder){
+  constructor(private clientService: ClientService){
   }
-
 
   ngOnInit(): void {
     this.getClients();
-    this.form = this.getForm();
-  }
-
-  getForm(): FormGroup {
-    return this.formBuilder.group({
-      'name': ['', Validators.required],
-      'surname': ['', Validators.required],
-      'position': ['', Validators.required]
-    });
   }
 
   getClients(): void{
-    this.clientService.getClients().subscribe(clientsList => this.clients = clientsList.map( client => ClientModel.from(client)));
+    this.clientService.getClients().subscribe(clientsList => this.clients = clientsList.map( client =>  {
+      return ClientModel.from(client);
+    }));
   }
 
   delete(id: any) {
     this.clientService.deleteClient(id).subscribe( (result) => {
-      console.log(result);
       this.clients = this.clients.filter( (client) => client.id != id)
     }, (error => console.error(error)));
   }

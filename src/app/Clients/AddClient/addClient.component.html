@@ -7,22 +7,24 @@
     <input #surname matInput placeholder="Apellido" formControlName="surname">
   </mat-form-field>
 
-  <mat-form-field>
-    <mat-select #position placeholder="Posición" formControlName="position">
-      <mat-option value="BOSS">Jefe</mat-option>
-      <mat-option value="OWNER">Dueño/a</mat-option>
-      <mat-option value="TECHNICIAN">Técnico</mat-option>
-      <mat-option value="SALES">Ventas</mat-option>
-    </mat-select>
+  <mat-form-field class="example-full-width">
+    <input #mail matInput placeholder="Correo electrónico" formControlName="mail">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input #phone1 matInput placeholder="Teléfono" formControlName="phone1">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input #phone2 matInput placeholder="Teléfono alternativo" formControlName="phone2">
   </mat-form-field>
 
   <div class="plus">
     <button (click)="add()" [disabled]="form.invalid">
-    <i class="material-icons">person_add</i>
+      <i class="material-icons">person_add</i>
     </button>
   </div>
 
 </form>
-
 
 

@@ -1,13 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {EmployeeService} from '../../Services/employee.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {TechnicalService} from "../technicalService.model";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {TechnicalServiceService} from "../../Services/technicalService.service";
 
 
 @Component({
-
-  selector: 'app-list-employee',
+  selector: 'app-list-technicalService',
   templateUrl: './technicalService.component.html',
   styleUrls: ['./technicalService.component.scss'],
   animations: [
@@ -20,46 +19,57 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 })
 
 export class TechnicalServiceComponent implements OnInit{
-  employees: TechnicalService[];
+  technicalServices: TechnicalService[];
   form: FormGroup;
-  columnsToDisplay = ['id','name', 'surname', 'position', 'options'];
+  columnsToDisplay = ['id','employee', 'client', 'description', 'admissionDate', 'egressDate', 'price', 'paymentMethod', 'delivered', 'status', 'options'];
   columnTranslated = {
-    id: 'Código Empleado',
-    name: 'nombre',
-    surname: 'apellido',
-    position: 'posicion',
+    id: 'Código Servicio Técnico',
+    employee:'Responsable',
+    client:'Cliente',
+    description:'Descripción',
+    admissionDate:'Ingreso',
+    egressDate:'Egreso',
+    price:'Precio',
+    paymentMethod:'Método de Pago',
+    delivered:'Entregado?',
+    status:'Estado',
     options: 'opciones'
   };
-  expandedElement: TechnicalService | null;
 
-  constructor(private employeeService: EmployeeService, private formBuilder: FormBuilder){
+  constructor(private technicalServiceService: TechnicalServiceService, private formBuilder: FormBuilder){
   }
 
-
   ngOnInit(): void {
-    this.getEmployees();
+    this.getTechnicalServicess();
     this.form = this.getForm();
   }
 
   getForm(): FormGroup {
     return this.formBuilder.group({
-      'name': ['', Validators.required],
-      'surname': ['', Validators.required],
-      'position': ['', Validators.required]
+      employee: new FormControl('', [Validators.required]),
+      client: new FormControl('', [Validators.required]),
+      description: new FormControl('', [Validators.required]),
+      admissionDate: new FormControl('', [Validators.required]),
+      egressDate: new FormControl('', [Validators.required]),
+      price: new FormControl('', [Validators.required]),
+      paymentMethod: new FormControl('', [Validators.required]),
+      delivered: new FormControl('', [Validators.required]),
+      status: new FormControl('', [Validators.required]),
     });
   }
 
-  getEmployees(): void{
-    this.employeeService.getEmployees().subscribe(employeesList => this.employees = employeesList.map( employee =>
-      TechnicalService.from(employee)
-    ));
+  getTechnicalServicess(): void{
+    this.technicalServiceService.getTechnicalServices().subscribe(technicalServicesList => this.technicalServices = technicalServicesList.map( technicalServices =>  {
+      const e = TechnicalService.from(technicalServices);
+      e.status = TechnicalService.enumToSpanish(e.status);
+      return e;
+    }));
   }
 
   delete(id: any) {
-    this.employeeService.deleteEmployee(id).subscribe( (result) => {
+    this.technicalServiceService.deleteTechnicalService(id).subscribe( (result) => {
       console.log(result);
-      this.employees = this.employees.filter( (employee) => employee.id != id)
+      this.technicalServices = this.technicalServices.filter( (technicalServices) => technicalServices.id != id)
     }, (error => console.error(error)));
   }
-
 }

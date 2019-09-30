@@ -1,7 +1,7 @@
 <div class="table-list">
 
   <table mat-table
-         [dataSource]="employees" multiTemplateDataRows
+         [dataSource]="clients" multiTemplateDataRows
          class="mat-elevation-z8">
     <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
       <th mat-header-cell *matHeaderCellDef> {{columnTranslated[column]}} </th>
@@ -16,26 +16,26 @@
                 class="material-icons">restore_from_trash</i></button>
             </div>
             <div class="update">
-              <a routerLink="/updateEmployees/{{element.id}}">
+              <a routerLink="/updateClient/{{element.id}}">
                 <button mat-mini-fab color="accent"><i class="material-icons">update</i></button>
               </a>
             </div>
 
           </div>
         </div>
-       </td>
+      </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
     <tr mat-row *matRowDef="let element; columns: columnsToDisplay;"
         class="example-element-row"
-        [class.example-expanded-row]="expandedElement === element">
+        [class.example-expanded-row]="element">
     </tr>
   </table>
 
 
   <div class="plus">
-    <a routerLink="/addEmployees">
+    <a routerLink="/addClient">
       <button mat-fab color="primary">
         <i class="material-icons">add</i>
       </button>
@@ -43,6 +43,11 @@
   </div>
 
 </div>
+
+
+
+
+
 
 
 

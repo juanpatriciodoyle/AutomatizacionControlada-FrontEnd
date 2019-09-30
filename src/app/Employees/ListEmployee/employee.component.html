@@ -7,6 +7,7 @@
       <th mat-header-cell *matHeaderCellDef> {{columnTranslated[column]}} </th>
       <td mat-cell *matCellDef="let element">
         <div *ngIf="column != 'options'">
+<!--          Todo que es esta linea more? -->
           {{column === 'position' ? (element.position) : element[column]}}
         </div>
         <div *ngIf="column == 'options'">
@@ -16,7 +17,7 @@
                 class="material-icons">restore_from_trash</i></button>
             </div>
             <div class="update">
-              <a routerLink="/updateEmployees/{{element.id}}">
+              <a routerLink="/updateEmployee/{{element.id}}">
                 <button mat-mini-fab color="accent"><i class="material-icons">update</i></button>
               </a>
             </div>
@@ -35,7 +36,7 @@
 
 
   <div class="plus">
-    <a routerLink="/addEmployees">
+    <a routerLink="/addEmployee">
       <button mat-fab color="primary">
         <i class="material-icons">add</i>
       </button>

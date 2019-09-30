@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ClientService} from '../../Services/client.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {ClientModel} from "../client.model";
 
@@ -15,7 +15,6 @@ import {ClientModel} from "../client.model";
 export class AddClientComponent implements OnInit{
   clients: ClientModel[];
   form: FormGroup;
-  positions = ["Jefe", "Dueño/a", "Técnico", "Ventas"];
 
   // getErrorMessage() {
   //   const emailFormControl: AbstractControl = this.form.get('email');
@@ -34,10 +33,11 @@ export class AddClientComponent implements OnInit{
 
   getForm(): FormGroup {
     return this.formBuilder.group({
-      name: ['', Validators.required],
-      surname: ['', Validators.required],
-      position: ['', Validators.required],
-      // email: ['', [Validators.email, Validators.required]]
+      name: new FormControl('', [Validators.required]),
+      surname: new FormControl('', [Validators.required]),
+      mail: new FormControl('', [Validators.required, Validators.email]),
+      phone1: new FormControl('', [Validators.required]),
+      phone2: new FormControl('', [Validators.required]),
     });
   }
 

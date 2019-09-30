@@ -4,7 +4,7 @@ export class EmployeeModel {
   id: number;
   name: string;
   surname: string;
-  position: any;
+  position: PositionEnum;
 
   static from(json: any): EmployeeModel {
     return new EmployeeModel(json.id, json.name, json.surname, this.stringToEnum(json.position));

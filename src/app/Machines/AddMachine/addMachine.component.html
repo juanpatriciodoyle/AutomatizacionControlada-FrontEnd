@@ -1,20 +1,22 @@
 <form class="example-form" [formGroup]="form">
+
   <mat-form-field class="example-full-width">
-    <input #name matInput placeholder="Nombre" formControlName="name">
+    <input #internalCode matInput placeholder="Código Interno" formControlName="internalCode">
   </mat-form-field>
 
   <mat-form-field class="example-full-width">
-    <input #surname matInput placeholder="Apellido" formControlName="surname">
+    <input #brand matInput placeholder="Marca" formControlName="brand">
   </mat-form-field>
 
-  <mat-form-field>
-    <mat-select #position placeholder="Posición" formControlName="position">
-      <mat-option value="BOSS">Jefe</mat-option>
-      <mat-option value="OWNER">Dueño/a</mat-option>
-      <mat-option value="TECHNICIAN">Técnico</mat-option>
-      <mat-option value="SALES">Ventas</mat-option>
-    </mat-select>
+  <mat-form-field class="example-full-width">
+    <input #model matInput placeholder="Modelo" formControlName="model">
   </mat-form-field>
+
+<!--  TODO moreeeeeeee como hago el tema del boolean?-->
+  <mat-slide-toggle class="example-full-width">
+    <input #boughtHere matInput placeholder="Fue comprada acá?" formControlName="boughtHere">
+  </mat-slide-toggle>
+
 
   <div class="plus">
     <button (click)="add()" [disabled]="form.invalid">

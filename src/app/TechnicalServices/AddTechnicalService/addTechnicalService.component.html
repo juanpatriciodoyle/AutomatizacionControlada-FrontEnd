@@ -1,18 +1,43 @@
 <form class="example-form" [formGroup]="form">
   <mat-form-field class="example-full-width">
-    <input #name matInput placeholder="Nombre" formControlName="name">
+    <input #employee matInput placeholder="Empleado" formControlName="employee">
   </mat-form-field>
 
   <mat-form-field class="example-full-width">
-    <input #surname matInput placeholder="Apellido" formControlName="surname">
+    <input #client matInput placeholder="Cliente" formControlName="client">
   </mat-form-field>
 
+  <mat-form-field class="example-full-width">
+    <input #description matInput placeholder="Descripción" formControlName="description">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input #admissionDate matInput placeholder="Ingreso" formControlName="admissionDate">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input #egressDate matInput placeholder="Egreso" formControlName="egressDate">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input #price matInput placeholder="Precio" formControlName="price">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input #paymentMethod matInput placeholder="Método de Pago" formControlName="paymentMethod">
+  </mat-form-field>
+
+  <!--  TODO moreeeeeeee como hago el tema del boolean?   -->
+  <mat-slide-toggle class="example-full-width">
+    <input #delivered matInput placeholder="Entregado?" formControlName="delivered">
+  </mat-slide-toggle>
+
   <mat-form-field>
-    <mat-select #position placeholder="Posición" formControlName="position">
-      <mat-option value="BOSS">Jefe</mat-option>
-      <mat-option value="OWNER">Dueño/a</mat-option>
-      <mat-option value="TECHNICIAN">Técnico</mat-option>
-      <mat-option value="SALES">Ventas</mat-option>
+    <mat-select #status placeholder="Estado" formControlName="status">
+      <mat-option value="ONSERVICE">En servicio</mat-option>
+      <mat-option value="DELAYED">Retrasada</mat-option>
+      <mat-option value="READY">Listo</mat-option>
+      <mat-option value="DELIVERED">Entregado</mat-option>
     </mat-select>
   </mat-form-field>
 

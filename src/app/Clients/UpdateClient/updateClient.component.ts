@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ClientService} from '../../Services/client.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from '@angular/router';
 import {ClientModel} from "../client.model";
 
@@ -24,12 +24,7 @@ export class UpdateClientComponent implements OnInit {
   @Input() oldClient: ClientModel;
   id: number;
   form: FormGroup;
-  positionTranslated = {
-    BOSS: 'Jefe',
-    OWNER: 'Dueño',
-    TECHNICIAN: 'Técnico',
-    SALES: 'Ventas',
-  };
+
 
   constructor(private clientService: ClientService, private formBuilder: FormBuilder, private route: ActivatedRoute, private routes: Router) {
   }
@@ -42,9 +37,11 @@ export class UpdateClientComponent implements OnInit {
 
   getForm(): FormGroup {
     return this.formBuilder.group({
-      'name': ['', Validators.required],
-      'surname': ['', Validators.required],
-      'position': ['', Validators.required]
+      name: new FormControl('', [Validators.required]),
+      surname: new FormControl('', [Validators.required]),
+      mail: new FormControl('', [Validators.required, Validators.email]),
+      phone1: new FormControl('', [Validators.required]),
+      phone2: new FormControl('', [Validators.required]),
     });
   }
 
@@ -57,9 +54,8 @@ export class UpdateClientComponent implements OnInit {
     if (this.form.invalid) return;
     const data = this.form.getRawValue();
     this.clientService.updateClient(this.id,ClientModel.fromForm(data)).subscribe(client => {
-      console.log(client);
-      this.routes.navigate(['clients'])
-    }, error => {console.error(error)}
+        this.routes.navigate(['clients'])
+      }, error => {console.error(error)}
     );
   }
 }

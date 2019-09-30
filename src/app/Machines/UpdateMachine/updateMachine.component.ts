@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MachineService} from '../../Services/machine.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from '@angular/router';
 import {MachineModel} from "../machine.model";
 
@@ -24,12 +24,6 @@ export class UpdateMachineComponent implements OnInit {
   @Input() oldMachine: MachineModel;
   id: number;
   form: FormGroup;
-  positionTranslated = {
-    BOSS: 'Jefe',
-    OWNER: 'Dueño',
-    TECHNICIAN: 'Técnico',
-    SALES: 'Ventas',
-  };
 
   constructor(private machineService: MachineService, private formBuilder: FormBuilder, private route: ActivatedRoute, private routes: Router) {
   }
@@ -42,9 +36,10 @@ export class UpdateMachineComponent implements OnInit {
 
   getForm(): FormGroup {
     return this.formBuilder.group({
-      'name': ['', Validators.required],
-      'surname': ['', Validators.required],
-      'position': ['', Validators.required]
+      internalCode: new FormControl('', [Validators.required]),
+      brand: new FormControl('', [Validators.required]),
+      model: new FormControl('', [Validators.required]),
+      boughtHere: new FormControl('', ),
     });
   }
 

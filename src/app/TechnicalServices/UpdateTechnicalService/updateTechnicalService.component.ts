@@ -1,9 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {TechnicalServiceService} from '../../Services/technicalService.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {TechnicalService} from "../technicalService.model";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from '@angular/router';
+import {TechnicalService} from "../technicalService.model";
 
 
 @Component({
@@ -25,30 +25,35 @@ export class UpdateTechnicalServiceComponent implements OnInit {
   id: number;
   form: FormGroup;
   positionTranslated = {
-    BOSS: 'Jefe',
-    OWNER: 'Dueño',
-    TECHNICIAN: 'Técnico',
-    SALES: 'Ventas',
+    ONSERVICE: 'En Servicio',
+    DELAYED: 'Retrasada',
+    READY: 'Listo',
+    DELIVERED: 'Entregado',
   };
 
   constructor(private technicalServiceService: TechnicalServiceService, private formBuilder: FormBuilder, private route: ActivatedRoute, private routes: Router) {
   }
 
-
   ngOnInit(): void {
-    this.getTechnicalService();
+    this.getTechnicalServices();
     this.form = this.getForm();
   }
 
   getForm(): FormGroup {
     return this.formBuilder.group({
-      'name': ['', Validators.required],
-      'surname': ['', Validators.required],
-      'position': ['', Validators.required]
+      employee: new FormControl('', [Validators.required]),
+      client: new FormControl('', [Validators.required]),
+      description: new FormControl('', [Validators.required]),
+      admissionDate: new FormControl('', [Validators.required]),
+      egressDate: new FormControl('', [Validators.required]),
+      price: new FormControl('', [Validators.required]),
+      paymentMethod: new FormControl('', [Validators.required]),
+      delivered: new FormControl('', [Validators.required]),
+      status: new FormControl('', [Validators.required]),
     });
   }
 
-  getTechnicalService(): void {
+  getTechnicalServices(): void {
     this.id = +this.route.snapshot.paramMap.get('id');
     this.technicalServiceService.getTechnicalService(this.id).subscribe(technicalService => this.oldTechnicalService = technicalService);
   }
@@ -57,9 +62,8 @@ export class UpdateTechnicalServiceComponent implements OnInit {
     if (this.form.invalid) return;
     const data = this.form.getRawValue();
     this.technicalServiceService.updateTechnicalService(this.id,TechnicalService.fromForm(data)).subscribe(technicalService => {
-      console.log(technicalService);
-      this.routes.navigate(['technicalServices'])
-    }, error => {console.error(error)}
+        this.routes.navigate(['technicalServices'])
+      }, error => {console.error(error)}
     );
   }
 }

@@ -12,12 +12,13 @@ import {UpdateEmployeeComponent} from "./Employees/UpdateEmployee/updateEmployee
 import {ClientComponent} from './Clients/ListClient/client.component';
 import {UpdateClientComponent} from './Clients/UpdateClient/updateClient.component';
 import {AddClientComponent} from './Clients/AddClient/addClient.component';
-import {TechnicalServiceComponent} from './TechnicalServices/ListTechnicalService/technicalService.component';
 import {AddTechnicalServiceComponent} from './TechnicalServices/AddTechnicalService/addTechnicalService.component';
 import {UpdateTechnicalServiceComponent} from './TechnicalServices/UpdateTechnicalService/updateTechnicalService.component';
 import {MachineComponent} from './Machines/ListMachine/machine.component';
 import {AddMachineComponent} from './Machines/AddMachine/addMachine.component';
 import {UpdateMachineComponent} from './Machines/UpdateMachine/updateMachine.component';
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {TechnicalServiceComponent} from "./TechnicalServices/ListTechnicalService/technicalService.component";
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import {UpdateMachineComponent} from './Machines/UpdateMachine/updateMachine.com
     FormsModule,
     BrowserAnimationsModule,
     DemoMaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSlideToggleModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,32 +1,32 @@
 <form class="example-form" [formGroup]="form">
 
   <div>
-    <span>Empleado con Id: {{id}}</span>
+    <span>Máquina con Id: {{id}}</span>
   </div>
 
   <div>
     <mat-form-field class="example-full-width">
-      <input #name matInput placeholder="{{oldEmployee.name}}" formControlName="name" [defaultValue]="oldEmployee.name">
+      <input #internalCode matInput placeholder="{{oldMachine.internalCode}}" formControlName="internalCode" [defaultValue]="oldMachine.internalCode">
     </mat-form-field>
   </div>
 
   <div>
     <mat-form-field class="example-full-width">
-      <input #surname matInput placeholder="{{oldEmployee.surname}}" formControlName="surname" [defaultValue]="oldEmployee.surname">
+      <input #brand matInput placeholder="{{oldMachine.brand}}" formControlName="brand" [defaultValue]="oldMachine.brand">
     </mat-form-field>
   </div>
 
   <div>
-    <mat-form-field>
-      <mat-select #position placeholder="{{positionTranslated[oldEmployee.position]}}" formControlName="position">
-        <mat-option value="BOSS">Jefe</mat-option>
-        <mat-option value="OWNER">Dueño/a</mat-option>
-        <mat-option value="TECHNICIAN">Técnico</mat-option>
-        <mat-option value="SALES">Ventas</mat-option>
-      </mat-select>
+    <mat-form-field class="example-full-width">
+      <input #model matInput placeholder="{{oldMachine.model}}" formControlName="model" [defaultValue]="oldMachine.model">
     </mat-form-field>
   </div>
 
+  <div>
+    <mat-slide-toggle class="example-full-width">
+      <input #boughtHere matInput placeholder="{{oldMachine.boughtHere}}" formControlName="boughtHere" [defaultValue]="oldMachine.boughtHere">
+    </mat-slide-toggle>
+  </div>
 
   <div class="plus">
     <button (click)="update()">

@@ -1,21 +1,20 @@
 import {Component, OnInit} from '@angular/core';
-import {EmployeeService} from '../../Services/employee.service';
 import {TechnicalService} from "../technicalService.model";
-import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
+import {TechnicalServiceService} from "../../Services/technicalService.service";
 
 
 @Component({
 
-  selector: 'app-add-employee',
+  selector: 'app-add-technicalService',
   templateUrl: './addTechnicalService.component.html',
   styleUrls: ['./addTechnicalService.component.scss'],
 })
 
 export class AddTechnicalServiceComponent implements OnInit{
-  employees: TechnicalService[];
+  technicalService: TechnicalService[];
   form: FormGroup;
-  positions = ["Jefe", "Dueño/a", "Técnico", "Ventas"];
 
   // getErrorMessage() {
   //   const emailFormControl: AbstractControl = this.form.get('email');
@@ -23,34 +22,38 @@ export class AddTechnicalServiceComponent implements OnInit{
   //     emailFormControl.hasError('email') ? 'not a valid email' : '';
   // }
 
-  constructor(private employeeService: EmployeeService, private formBuilder: FormBuilder, private readonly routes: Router){
+  constructor(private technicalServiceService: TechnicalServiceService, private formBuilder: FormBuilder, private readonly routes: Router){
   }
 
 
   ngOnInit(): void {
-    this.getEmployees();
+    this.getTechnicalServices();
     this.form = this.getForm();
   }
 
   getForm(): FormGroup {
     return this.formBuilder.group({
-      name: ['', Validators.required],
-      surname: ['', Validators.required],
-      position: ['', Validators.required],
-      // email: ['', [Validators.email, Validators.required]]
+      employee: new FormControl('', [Validators.required]),
+      client: new FormControl('', [Validators.required]),
+      description: new FormControl('', [Validators.required]),
+      admissionDate: new FormControl('', [Validators.required]),
+      egressDate: new FormControl('', [Validators.required]),
+      price: new FormControl('', [Validators.required]),
+      paymentMethod: new FormControl('', [Validators.required]),
+      delivered: new FormControl('', [Validators.required]),
+      status: new FormControl('', [Validators.required]),
     });
   }
 
-  getEmployees(): void{
-    this.employeeService.getEmployees().subscribe(employeesList => this.employees = employeesList.map( employee => TechnicalService.from(employee)));
+  getTechnicalServices(): void{
+    this.technicalServiceService.getTechnicalServices().subscribe(technicalServiceList => this.technicalService = technicalServiceList.map( technicalService => TechnicalService.from(technicalService)));
   }
 
-  // add() {
-  //   if(this.form.invalid) return;
-  //   const data = this.form.getRawValue();
-  //   this.employeeService.addEmployee(TechnicalService.fromForm(data)).subscribe(employee => {
-  //     console.log(employee);
-  //     this.routes.navigate(['employees'])
-  //   }, error => {console.error(error)});
-  // }
+  add() {
+    if(this.form.invalid) return;
+    const data = this.form.getRawValue();
+    this.technicalServiceService.addTechnicalService(TechnicalService.fromForm(data)).subscribe(technicalService => {
+      this.routes.navigate(['technicalServices'])
+    }, error => {console.error(error)});
+  }
 }

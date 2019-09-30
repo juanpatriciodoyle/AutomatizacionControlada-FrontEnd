@@ -1,7 +1,7 @@
 <div class="table-list">
 
   <table mat-table
-         [dataSource]="employees" multiTemplateDataRows
+         [dataSource]="machines" multiTemplateDataRows
          class="mat-elevation-z8">
     <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
       <th mat-header-cell *matHeaderCellDef> {{columnTranslated[column]}} </th>
@@ -16,7 +16,7 @@
                 class="material-icons">restore_from_trash</i></button>
             </div>
             <div class="update">
-              <a routerLink="/updateEmployees/{{element.id}}">
+              <a routerLink="/updateMachine/{{element.id}}">
                 <button mat-mini-fab color="accent"><i class="material-icons">update</i></button>
               </a>
             </div>
@@ -35,7 +35,7 @@
 
 
   <div class="plus">
-    <a routerLink="/addEmployees">
+    <a routerLink="/addMachine">
       <button mat-fab color="primary">
         <i class="material-icons">add</i>
       </button>

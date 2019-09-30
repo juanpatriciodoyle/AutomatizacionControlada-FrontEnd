@@ -1,35 +1,43 @@
 <form class="example-form" [formGroup]="form">
 
   <div>
-    <span>Empleado con Id: {{id}}</span>
+    <span>Cliente con Id: {{id}}</span>
   </div>
 
   <div>
     <mat-form-field class="example-full-width">
-      <input #name matInput placeholder="{{oldEmployee.name}}" formControlName="name" [defaultValue]="oldEmployee.name">
+      <input #name matInput placeholder="{{oldClient.name}}" formControlName="name" [defaultValue]="oldClient.name">
     </mat-form-field>
   </div>
 
   <div>
     <mat-form-field class="example-full-width">
-      <input #surname matInput placeholder="{{oldEmployee.surname}}" formControlName="surname" [defaultValue]="oldEmployee.surname">
+      <input #surname matInput placeholder="{{oldClient.surname}}" formControlName="surname"
+             [defaultValue]="oldClient.surname">
     </mat-form-field>
   </div>
 
   <div>
-    <mat-form-field>
-      <mat-select #position placeholder="{{positionTranslated[oldEmployee.position]}}" formControlName="position">
-        <mat-option value="BOSS">Jefe</mat-option>
-        <mat-option value="OWNER">Dueño/a</mat-option>
-        <mat-option value="TECHNICIAN">Técnico</mat-option>
-        <mat-option value="SALES">Ventas</mat-option>
-      </mat-select>
+    <mat-form-field class="example-full-width">
+      <input #mail matInput placeholder="{{oldClient.mail}}" formControlName="mail">
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field class="example-full-width">
+      <input #phone1 matInput placeholder="{{oldClient.phone1}}" formControlName="phone1">
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field class="example-full-width">
+      <input #phone2 matInput placeholder="{{oldClient.phone2}}" formControlName="phone2">
     </mat-form-field>
   </div>
 
 
   <div class="plus">
-    <button (click)="update()">
+    <button (click)="update()" [disabled]="form.invalid">
       <i class="material-icons">person_add</i>
     </button>
   </div>

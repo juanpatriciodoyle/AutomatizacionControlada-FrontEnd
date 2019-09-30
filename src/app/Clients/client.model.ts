@@ -1,51 +1,32 @@
+import {MachineModel} from "../Machines/machine.model";
+
 export class ClientModel{
   id: number;
+  //TODO Moreeeeeeeeee private List<Machine> machineList;
+  machineList: Array<MachineModel>;
   name: string;
   surname: string;
-  position: string;
+  mail: string;
+  phone1: string;
+  phone2: string;
+
+
+  constructor(id: number, machineList: Array<MachineModel>, name: string, surname: string, mail: string, phone1: string, phone2: string) {
+    this.id = id;
+    this.machineList = machineList;
+    this.name = name;
+    this.surname = surname;
+    this.mail = mail;
+    this.phone1 = phone1;
+    this.phone2 = phone2;
+  }
 
   static from(json: any): ClientModel {
-    return new ClientModel(json.id, json.name, json.surname, ClientModel.enumToSpanish(json.position));
+    return new ClientModel(json.id, json.machineList, json.name, json.surname, json.mail, json.phone1, json.phone2);
   }
 
   static fromForm(data: any): ClientModel {
-    return new ClientModel(data.id, data.name, data.surname, data.position);
+    return new ClientModel(data.id, data.machineList, data.name, data.surname, data.mail, data.phone1, data.phone2);
   }
 
-  constructor(id: number, name: string, surname: string, position: string) {
-    this.id = id;
-    this.name = name;
-    this.surname = surname;
-    this.position = position;
-  }
-  // Enum implementation, service list (add-> lo que retorna lo meto en la lista). Get by id checkeo en la lista primero y sino hago get all
-  static enumToSpanish(position: string): string {
-    switch (position) {
-      case "BOSS":
-        return "Jefe";
-      case "OWNER":
-        return "Dueño/a";
-      case "TECHNICIAN":
-        return "Técnico";
-      case "SALES":
-        return "Ventas";
-    }
-  }
-
-    static enumToEnglish(position): string {
-    switch (position) {
-      case "Jefe":
-        return "BOSS";
-      case "Dueño/a":
-        return "OWNER";
-      case "Técnico":
-        return "TECHNICIAN";
-      case "Ventas":
-        return "SALES";
-    }
-  }
-}
-
-enum Position {
-  BOSS = "Jefe"
 }

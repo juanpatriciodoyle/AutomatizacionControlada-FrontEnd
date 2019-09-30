@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MachineService} from '../../Services/machine.service';
-import {FormBuilder,  FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {MachineModel} from "../machine.model";
 
@@ -15,7 +15,6 @@ import {MachineModel} from "../machine.model";
 export class AddMachineComponent implements OnInit{
   machines: MachineModel[];
   form: FormGroup;
-  positions = ["Jefe", "Dueño/a", "Técnico", "Ventas"];
 
   // getErrorMessage() {
   //   const emailFormControl: AbstractControl = this.form.get('email');
@@ -34,10 +33,10 @@ export class AddMachineComponent implements OnInit{
 
   getForm(): FormGroup {
     return this.formBuilder.group({
-      name: ['', Validators.required],
-      surname: ['', Validators.required],
-      position: ['', Validators.required],
-      // email: ['', [Validators.email, Validators.required]]
+      internalCode: new FormControl('', [Validators.required]),
+      brand: new FormControl('', [Validators.required]),
+      model: new FormControl('', [Validators.required]),
+      boughtHere: new FormControl(),
     });
   }
 
@@ -49,7 +48,6 @@ export class AddMachineComponent implements OnInit{
     if(this.form.invalid) return;
     const data = this.form.getRawValue();
     this.machineService.addMachine(MachineModel.fromForm(data)).subscribe(machine => {
-      console.log(machine);
       this.routes.navigate(['machines'])
     }, error => {console.error(error)});
   }
