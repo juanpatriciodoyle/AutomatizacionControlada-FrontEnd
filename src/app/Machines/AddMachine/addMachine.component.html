@@ -12,12 +12,11 @@
     <input #model matInput placeholder="Modelo" formControlName="model">
   </mat-form-field>
 
-<!--  TODO moreeeeeeee como hago el tema del boolean?-->
-  <mat-slide-toggle class="example-full-width">
-    <input #boughtHere matInput placeholder="Fue comprada acá?" formControlName="boughtHere">
+  <mat-slide-toggle class="example-full-width" formControlName="boughtHere">
+    Fue Comprada acá?
   </mat-slide-toggle>
 
-
+<!--  <input #boughtHere matInput placeholder="Fue comprada acá?" formControlName="boughtHere">-->
   <div class="plus">
     <button (click)="add()" [disabled]="form.invalid">
     <i class="material-icons">person_add</i>

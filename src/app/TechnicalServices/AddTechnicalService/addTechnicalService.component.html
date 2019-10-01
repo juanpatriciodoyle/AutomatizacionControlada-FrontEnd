@@ -1,4 +1,5 @@
 <form class="example-form" [formGroup]="form">
+  <!--Todo selectors       https://material.angular.io/components/select/overview-->
   <mat-form-field class="example-full-width">
     <input #employee matInput placeholder="Empleado" formControlName="employee">
   </mat-form-field>
@@ -10,7 +11,7 @@
   <mat-form-field class="example-full-width">
     <input #description matInput placeholder="Descripción" formControlName="description">
   </mat-form-field>
-
+<!--Todo dates               https://material.angular.io/components/datepicker/overview-->
   <mat-form-field class="example-full-width">
     <input #admissionDate matInput placeholder="Ingreso" formControlName="admissionDate">
   </mat-form-field>
@@ -27,9 +28,8 @@
     <input #paymentMethod matInput placeholder="Método de Pago" formControlName="paymentMethod">
   </mat-form-field>
 
-  <!--  TODO moreeeeeeee como hago el tema del boolean?   -->
-  <mat-slide-toggle class="example-full-width">
-    <input #delivered matInput placeholder="Entregado?" formControlName="delivered">
+  <mat-slide-toggle class="example-full-width" formControlName="delivered">
+    Entregado?
   </mat-slide-toggle>
 
   <mat-form-field>
@@ -43,7 +43,7 @@
 
   <div class="plus">
     <button (click)="add()" [disabled]="form.invalid">
-    <i class="material-icons">person_add</i>
+      <i class="material-icons">person_add</i>
     </button>
   </div>
 

@@ -2,8 +2,7 @@ import {MachineModel} from "../Machines/machine.model";
 
 export class ClientModel{
   id: number;
-  //TODO Moreeeeeeeeee private List<Machine> machineList;
-  machineList: Array<MachineModel>;
+  machineList: MachineModel[];
   name: string;
   surname: string;
   mail: string;
@@ -11,7 +10,7 @@ export class ClientModel{
   phone2: string;
 
 
-  constructor(id: number, machineList: Array<MachineModel>, name: string, surname: string, mail: string, phone1: string, phone2: string) {
+  constructor(id: number, machineList: MachineModel[], name: string, surname: string, mail: string, phone1: string, phone2: string) {
     this.id = id;
     this.machineList = machineList;
     this.name = name;

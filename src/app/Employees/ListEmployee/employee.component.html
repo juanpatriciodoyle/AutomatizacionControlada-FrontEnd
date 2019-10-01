@@ -7,8 +7,8 @@
       <th mat-header-cell *matHeaderCellDef> {{columnTranslated[column]}} </th>
       <td mat-cell *matCellDef="let element">
         <div *ngIf="column != 'options'">
-<!--          Todo que es esta linea more? -->
-          {{column === 'position' ? (element.position) : element[column]}}
+<!--          Todo hacer costum pipe -->
+          {{column === 'position' ? (element.position) : element[column] | translatePosition}}
         </div>
         <div *ngIf="column == 'options'">
           <div class="wrapper">

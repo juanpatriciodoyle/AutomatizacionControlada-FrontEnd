@@ -36,7 +36,7 @@ export class AddMachineComponent implements OnInit{
       internalCode: new FormControl('', [Validators.required]),
       brand: new FormControl('', [Validators.required]),
       model: new FormControl('', [Validators.required]),
-      boughtHere: new FormControl(),
+      boughtHere: new FormControl(false),
     });
   }
 

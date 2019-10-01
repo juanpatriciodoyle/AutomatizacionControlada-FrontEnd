@@ -49,7 +49,6 @@ export class AddClientComponent implements OnInit{
     if(this.form.invalid) return;
     const data = this.form.getRawValue();
     this.clientService.addClient(ClientModel.fromForm(data)).subscribe(client => {
-      console.log(client);
       this.routes.navigate(['clients'])
     }, error => {console.error(error)});
   }
