@@ -35,32 +35,6 @@ export class TechnicalService{
     this.status = status;
   }
 
-// Enum implementation, service list (add-> lo que retorna lo meto en la lista). Get by id checkeo en la lista primero y sino hago get all
-  static enumToSpanish(status: StatusEnum): string {
-    switch (status) {
-      case 0:
-        return "En servicio";
-      case 1:
-        return "Retrasada";
-      case 2:
-        return "Lista";
-      case 3:
-        return "Entregada";
-    }
-  }
-
-    static enumToEnglish(status: StatusEnum): string {
-    switch (status) {
-      case 0:
-        return "ONSERVICE";
-      case 1:
-        return "DELAYED";
-      case 2:
-        return "READY";
-      case 3:
-        return "DELIVERED";
-    }
-  }
 
   static stringToEnum(status: string): StatusEnum{
     switch (status) {

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {EmployeeService} from '../../Services/employee.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {EmployeeModel} from "../employee.model";
+import {EmployeeModel} from '../employee.model';
 
 
 @Component({
@@ -50,9 +50,7 @@ export class EmployeeComponent implements OnInit{
 
   getEmployees(): void{
     this.employeeService.getEmployees().subscribe(employeesList => this.employees = employeesList.map( employee =>  {
-      const e = EmployeeModel.from(employee);
-      e.position = EmployeeModel.enumToSpanish(e.position);
-      return e;
+      return EmployeeModel.from(employee);
     }));
   }
 

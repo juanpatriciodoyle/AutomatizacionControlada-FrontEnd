@@ -19,6 +19,8 @@ import {AddMachineComponent} from './Machines/AddMachine/addMachine.component';
 import {UpdateMachineComponent} from './Machines/UpdateMachine/updateMachine.component';
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {TechnicalServiceComponent} from "./TechnicalServices/ListTechnicalService/technicalService.component";
+import {TranslatePositionPipe} from './Employees/TranslatePosition.pipe';
+import {TranslateStatusPipe} from './TechnicalServices/translateStatus.pipe';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import {TechnicalServiceComponent} from "./TechnicalServices/ListTechnicalServic
     UpdateTechnicalServiceComponent,
     MachineComponent,
     AddMachineComponent,
-    UpdateMachineComponent
+    UpdateMachineComponent,
+    TranslatePositionPipe,
+    TranslateStatusPipe
 
   ],
   imports: [

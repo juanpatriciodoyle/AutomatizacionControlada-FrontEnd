@@ -21,33 +21,6 @@ export class EmployeeModel {
     this.position = position;
   }
 
-  // Enum implementation, service list (add-> lo que retorna lo meto en la lista). Get by id checkeo en la lista primero y sino hago get all
-  static enumToSpanish(position: PositionEnum): string {
-    switch (position) {
-      case 0:
-        return "Jefe";
-      case 1:
-        return "Dueño";
-      case 2:
-        return "Técnico";
-      case 3:
-        return "Ventas";
-    }
-  }
-
-  static enumToEnglish(position: PositionEnum): string {
-    switch (position) {
-      case 0:
-        return "BOSS";
-      case 1:
-        return "OWNER";
-      case 2:
-        return "TECHNICIAN";
-      case 3:
-        return "SALES";
-    }
-  }
-
   static stringToEnum(position: string): PositionEnum {
     switch (position) {
       case "BOSS":

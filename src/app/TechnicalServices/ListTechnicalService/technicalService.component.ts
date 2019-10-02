@@ -61,14 +61,12 @@ export class TechnicalServiceComponent implements OnInit{
   getTechnicalServicess(): void{
     this.technicalServiceService.getTechnicalServices().subscribe(technicalServicesList => this.technicalServices = technicalServicesList.map( technicalServices =>  {
       const e = TechnicalService.from(technicalServices);
-      e.status = TechnicalService.enumToSpanish(e.status);
       return e;
     }));
   }
 
   delete(id: any) {
     this.technicalServiceService.deleteTechnicalService(id).subscribe( (result) => {
-      console.log(result);
       this.technicalServices = this.technicalServices.filter( (technicalServices) => technicalServices.id != id)
     }, (error => console.error(error)));
   }

@@ -3,6 +3,10 @@ import {TechnicalService} from "../technicalService.model";
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {TechnicalServiceService} from "../../Services/technicalService.service";
+import {EmployeeModel} from '../../Employees/employee.model';
+import {EmployeeService} from '../../Services/employee.service';
+import {ClientModel} from '../../Clients/client.model';
+import {ClientService} from '../../Services/client.service';
 
 
 @Component({
@@ -13,8 +17,10 @@ import {TechnicalServiceService} from "../../Services/technicalService.service";
 })
 
 export class AddTechnicalServiceComponent implements OnInit{
-  technicalService: TechnicalService[];
+  technicalServices: TechnicalService[];
+  employees: EmployeeModel[];
   form: FormGroup;
+  clients: ClientModel[];
 
   // getErrorMessage() {
   //   const emailFormControl: AbstractControl = this.form.get('email');
@@ -22,14 +28,18 @@ export class AddTechnicalServiceComponent implements OnInit{
   //     emailFormControl.hasError('email') ? 'not a valid email' : '';
   // }
 
-  constructor(private technicalServiceService: TechnicalServiceService, private formBuilder: FormBuilder, private readonly routes: Router){
+  constructor(private technicalServiceService: TechnicalServiceService, private employeeService: EmployeeService, private clientService: ClientService, private formBuilder: FormBuilder, private readonly routes: Router){
   }
 
 
   ngOnInit(): void {
     this.getTechnicalServices();
+    this.getEmployees();
+    this.getClients();
     this.form = this.getForm();
   }
+
+
 
   getForm(): FormGroup {
     return this.formBuilder.group({
@@ -45,8 +55,20 @@ export class AddTechnicalServiceComponent implements OnInit{
     });
   }
 
+  getClients(): void{
+    this.clientService.getClients().subscribe(clientsList => this.clients = clientsList.map( client =>  {
+      return ClientModel.from(client);
+    }));
+  }
+
+  getEmployees(): void{
+    this.employeeService.getEmployees().subscribe(employeesList => this.employees = employeesList.map( employee =>  {
+      return EmployeeModel.from(employee);
+    }));
+  }
+
   getTechnicalServices(): void{
-    this.technicalServiceService.getTechnicalServices().subscribe(technicalServiceList => this.technicalService = technicalServiceList.map( technicalService => TechnicalService.from(technicalService)));
+    this.technicalServiceService.getTechnicalServices().subscribe(technicalServiceList => this.technicalServices = technicalServiceList.map( technicalService => TechnicalService.from(technicalService)));
   }
 
   add() {

@@ -7,7 +7,7 @@
       <th mat-header-cell *matHeaderCellDef> {{columnTranslated[column]}} </th>
       <td mat-cell *matCellDef="let element">
         <div *ngIf="column != 'options'">
-          {{column === 'status' ? (element.status) : element[column]}}
+          {{column === 'status' ? (element.status | TranslateStatusPipe) : element[column]}}
         </div>
         <div *ngIf="column == 'options'">
           <div class="wrapper">
