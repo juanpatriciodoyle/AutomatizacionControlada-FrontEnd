@@ -47,11 +47,9 @@ export class AddTechnicalServiceComponent implements OnInit{
       client: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
       admissionDate: new FormControl('', [Validators.required]),
-      egressDate: new FormControl('', [Validators.required]),
       price: new FormControl('', [Validators.required]),
       paymentMethod: new FormControl('', [Validators.required]),
-      delivered: new FormControl('', [Validators.required]),
-      status: new FormControl(false),
+      status: new FormControl('', [Validators.required]),
     });
   }
 
@@ -74,6 +72,7 @@ export class AddTechnicalServiceComponent implements OnInit{
   add() {
     if(this.form.invalid) return;
     const data = this.form.getRawValue();
+    console.log(TechnicalService.fromForm(data));
     this.technicalServiceService.addTechnicalService(TechnicalService.fromForm(data)).subscribe(technicalService => {
       this.routes.navigate(['technicalServices'])
     }, error => {console.error(error)});

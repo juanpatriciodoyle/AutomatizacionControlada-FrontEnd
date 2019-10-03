@@ -21,7 +21,7 @@ import {TechnicalServiceService} from "../../Services/technicalService.service";
 export class TechnicalServiceComponent implements OnInit{
   technicalServices: TechnicalService[];
   form: FormGroup;
-  columnsToDisplay = ['id','employee', 'client', 'description', 'admissionDate', 'egressDate', 'price', 'paymentMethod', 'delivered', 'status', 'options'];
+  columnsToDisplay = ['id','employee', 'client', 'description', 'admissionDate', 'egressDate', 'price', 'paymentMethod', 'status', 'options'];
   columnTranslated = {
     id: 'Código Servicio Técnico',
     employee:'Responsable',
@@ -31,7 +31,6 @@ export class TechnicalServiceComponent implements OnInit{
     egressDate:'Egreso',
     price:'Precio',
     paymentMethod:'Método de Pago',
-    delivered:'Entregado?',
     status:'Estado',
     options: 'opciones'
   };
@@ -40,7 +39,7 @@ export class TechnicalServiceComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.getTechnicalServicess();
+    this.getTechnicalServices();
     this.form = this.getForm();
   }
 
@@ -53,15 +52,13 @@ export class TechnicalServiceComponent implements OnInit{
       egressDate: new FormControl('', [Validators.required]),
       price: new FormControl('', [Validators.required]),
       paymentMethod: new FormControl('', [Validators.required]),
-      delivered: new FormControl('', [Validators.required]),
       status: new FormControl('', [Validators.required]),
     });
   }
 
-  getTechnicalServicess(): void{
+  getTechnicalServices(): void{
     this.technicalServiceService.getTechnicalServices().subscribe(technicalServicesList => this.technicalServices = technicalServicesList.map( technicalServices =>  {
-      const e = TechnicalService.from(technicalServices);
-      return e;
+      return TechnicalService.from(technicalServices);
     }));
   }
 

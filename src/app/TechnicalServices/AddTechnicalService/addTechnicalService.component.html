@@ -1,17 +1,17 @@
 <form class="example-form" [formGroup]="form">
   <!--Todo selectors       https://material.angular.io/components/select/overview-->
-  <mat-form-field class="example-full-width" formControlName="employee">
+  <mat-form-field class="example-full-width">
       <mat-label>Responsable</mat-label>
-      <mat-select>
+      <mat-select formControlName="employee">
         <mat-option *ngFor="let employee of employees" [value]="employee.id">
           {{employee.name}}
         </mat-option>
       </mat-select>
   </mat-form-field>
 
-  <mat-form-field class="example-full-width" formControlName="client">
+  <mat-form-field class="example-full-width">
     <mat-label>Cliente</mat-label>
-    <mat-select>
+    <mat-select formControlName="client">
       <mat-option *ngFor="let client of clients" [value]="client.id">
         {{client.name}}
       </mat-option>
@@ -21,9 +21,10 @@
   <mat-form-field class="example-full-width">
     <input #description matInput placeholder="Descripción" formControlName="description">
   </mat-form-field>
+
 <!--Todo dates               https://material.angular.io/components/datepicker/overview-->
   <mat-form-field class="example-full-width">
-    <input matInput [matDatepicker]="picker" placeholder="Día de Ingreso">
+    <input matInput [matDatepicker]="picker" placeholder="Día de Ingreso" formControlName="admissionDate">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
@@ -35,10 +36,6 @@
   <mat-form-field class="example-full-width">
     <input #paymentMethod matInput placeholder="Método de Pago" formControlName="paymentMethod">
   </mat-form-field>
-
-  <mat-slide-toggle class="example-full-width" formControlName="delivered">
-    Entregado?
-  </mat-slide-toggle>
 
   <mat-form-field>
     <mat-select #status placeholder="Estado" formControlName="status">

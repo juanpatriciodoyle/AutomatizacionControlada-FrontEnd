@@ -48,7 +48,6 @@ export class UpdateTechnicalServiceComponent implements OnInit {
       egressDate: new FormControl('', [Validators.required]),
       price: new FormControl('', [Validators.required]),
       paymentMethod: new FormControl('', [Validators.required]),
-      delivered: new FormControl('', [Validators.required]),
       status: new FormControl('', [Validators.required]),
     });
   }
