@@ -21,6 +21,7 @@ export class AddTechnicalServiceComponent implements OnInit{
   employees: EmployeeModel[];
   form: FormGroup;
   clients: ClientModel[];
+  today: Date=new Date();
 
   // getErrorMessage() {
   //   const emailFormControl: AbstractControl = this.form.get('email');

@@ -24,9 +24,9 @@
 
 <!--Todo dates               https://material.angular.io/components/datepicker/overview-->
   <mat-form-field class="example-full-width">
-    <input matInput [matDatepicker]="picker" placeholder="Día de Ingreso" formControlName="admissionDate">
+    <input matInput [max]="today" [matDatepicker]="picker" placeholder="Día de Ingreso" formControlName="admissionDate" disabled>
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
+    <mat-datepicker #picker disabled="false"></mat-datepicker>
   </mat-form-field>
 
   <mat-form-field class="example-full-width">
