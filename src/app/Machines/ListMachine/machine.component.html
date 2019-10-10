@@ -6,8 +6,11 @@
     <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
       <th mat-header-cell *matHeaderCellDef> {{columnTranslated[column]}} </th>
       <td mat-cell *matCellDef="let element">
-        <div *ngIf="column != 'options'">
+        <div *ngIf="column != 'options' && column !='boughtHere'">
           {{element[column]}}
+        </div>
+        <div *ngIf="column === 'boughtHere'">
+          {{element[column]? "si":"no"}}
         </div>
         <div *ngIf="column == 'options'">
           <div class="wrapper">
