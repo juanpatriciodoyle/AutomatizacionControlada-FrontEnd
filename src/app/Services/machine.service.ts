@@ -24,6 +24,20 @@ export class MachineService{
     );
   }
 
+  getMachine(id: number): Observable<MachineModel>{
+    return this.http.get<MachineModel>(this.machinesUrl+'/'+id, this.httpOptions).pipe(
+      tap(),
+      catchError(this.handleError<MachineModel>('getById'))
+    )
+  }
+
+  getMachineByClientId(id: number): Observable<MachineModel[]>{
+    return this.http.get<MachineModel[]>(this.machinesUrl+'/ByClient/'+id, this.httpOptions).pipe(
+      tap(),
+      catchError(this.handleError<MachineModel[]>('getByClientId'))
+    )
+  }
+
   addMachine(machine: MachineModel): Observable<MachineModel>{
     return this.http.post<MachineModel>(this.machinesUrl, machine, this.httpOptions).pipe(
       tap(),
@@ -36,13 +50,6 @@ export class MachineService{
       tap(),
       catchError(this.handleError<MachineModel>('deleteMachine'))
     );
-  }
-
-  getMachine(id: number): Observable<MachineModel>{
-    return this.http.get<MachineModel>(this.machinesUrl+'/'+id, this.httpOptions).pipe(
-      tap(),
-      catchError(this.handleError<MachineModel>('getById'))
-    )
   }
 
   updateMachine(id: number, machine: MachineModel): Observable<MachineModel> {

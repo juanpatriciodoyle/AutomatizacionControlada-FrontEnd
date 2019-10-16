@@ -12,8 +12,17 @@
   <mat-form-field class="example-full-width">
     <mat-label>Cliente</mat-label>
     <mat-select formControlName="client">
-      <mat-option *ngFor="let client of clients" [value]="client.id">
+      <mat-option *ngFor="let client of clients" [value]="client.id" (click)="getMachineByClientId(client.id)">
         {{client.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Máquina</mat-label>
+    <mat-select formControlName="client">
+      <mat-option *ngFor="let machine of machines" [value]="machine.id">
+        {{machine.internalCode}}
       </mat-option>
     </mat-select>
   </mat-form-field>

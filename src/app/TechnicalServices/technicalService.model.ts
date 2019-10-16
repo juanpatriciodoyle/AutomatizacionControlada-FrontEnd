@@ -2,8 +2,9 @@ import {StatusEnum} from './status.enum';
 
 export class TechnicalService{
   id: number;
-  employee: number;
   client: number;
+  machine: number;
+  employee: number;
   description: string;
   admissionDate: Date;
   egressDate: Date;
@@ -12,19 +13,20 @@ export class TechnicalService{
   status: StatusEnum;
 
   static from(json: any): TechnicalService {
-    return new TechnicalService(json.id, json.employee, json.client, json.description, json.admissionDate,
+    return new TechnicalService(json.id, json.client, json.machine, json.employee, json.description, json.admissionDate,
         json.egressDate, json.price, json.paymentMethod, this.stringToEnum(json.status));
   }
 
   static fromForm(data: any): TechnicalService {
-    return new TechnicalService(data.id, data.employee, data.client, data.description, data.admissionDate,
+    return new TechnicalService(data.id, data.client, data.machine, data.employee, data.description, data.admissionDate,
       null, data.price, data.paymentMethod, data.status);
   }
 
-  constructor(id: number, employee: number, client: number, description: string, admissionDate: Date, egressDate: Date, price: number, paymentMethod: string, status: StatusEnum) {
+  constructor(id: number, client: number, machine: number, employee: number, description: string, admissionDate: Date, egressDate: Date, price: number, paymentMethod: string, status: StatusEnum) {
     this.id = id;
-    this.employee = employee;
     this.client = client;
+    this.machine = machine;
+    this.employee = employee;
     this.description = description;
     this.admissionDate = admissionDate;
     this.egressDate = egressDate;

@@ -19,6 +19,14 @@
     <input #phone2 matInput placeholder="Teléfono alternativo" formControlName="phone2">
   </mat-form-field>
 
+  <mat-form-field class="example-full-width">
+    <mat-label>Máquinas</mat-label>
+    <mat-select formControlName="machineList" multiple>
+      <mat-option *ngFor="let machine of machineList" [value]="machine">{{machine.internalCode}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
   <div class="plus">
     <button (click)="add()" [disabled]="form.invalid">
       <i class="material-icons">person_add</i>

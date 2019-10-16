@@ -3,6 +3,8 @@ import {ClientService} from '../../Services/client.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {ClientModel} from "../client.model";
+import {MachineModel} from "../../Machines/machine.model";
+import {MachineService} from "../../Services/machine.service";
 
 
 @Component({
@@ -14,6 +16,7 @@ import {ClientModel} from "../client.model";
 
 export class AddClientComponent implements OnInit{
   clients: ClientModel[];
+  machineList: MachineModel[];
   form: FormGroup;
 
   // getErrorMessage() {
@@ -22,12 +25,13 @@ export class AddClientComponent implements OnInit{
   //     emailFormControl.hasError('email') ? 'not a valid email' : '';
   // }
 
-  constructor(private clientService: ClientService, private formBuilder: FormBuilder, private readonly routes: Router){
+  constructor(private machineService: MachineService,private clientService: ClientService, private formBuilder: FormBuilder, private readonly routes: Router){
   }
 
 
   ngOnInit(): void {
     this.getClients();
+    this.getMachines();
     this.form = this.getForm();
   }
 
@@ -38,6 +42,7 @@ export class AddClientComponent implements OnInit{
       mail: new FormControl('', [Validators.required, Validators.email]),
       phone1: new FormControl('', [Validators.required]),
       phone2: new FormControl('', [Validators.required]),
+      machineList: new FormControl('', [Validators.required]),
     });
   }
 
@@ -45,9 +50,14 @@ export class AddClientComponent implements OnInit{
     this.clientService.getClients().subscribe(clientsList => this.clients = clientsList.map( client => ClientModel.from(client)));
   }
 
+  getMachines(): void{
+    this.machineService.getMachines().subscribe(machinesList => this.machineList = machinesList.map( machine => MachineModel.from(machine)));
+  }
+
   add() {
     if(this.form.invalid) return;
     const data = this.form.getRawValue();
+    console.log(data)
     this.clientService.addClient(ClientModel.fromForm(data)).subscribe(client => {
       this.routes.navigate(['clients'])
     }, error => {console.error(error)});

@@ -7,6 +7,8 @@ import {EmployeeModel} from '../../Employees/employee.model';
 import {EmployeeService} from '../../Services/employee.service';
 import {ClientModel} from '../../Clients/client.model';
 import {ClientService} from '../../Services/client.service';
+import {MachineModel} from "../../Machines/machine.model";
+import {MachineService} from "../../Services/machine.service";
 
 
 @Component({
@@ -19,8 +21,9 @@ import {ClientService} from '../../Services/client.service';
 export class AddTechnicalServiceComponent implements OnInit{
   technicalServices: TechnicalService[];
   employees: EmployeeModel[];
-  form: FormGroup;
   clients: ClientModel[];
+  machines: MachineModel[];
+  form: FormGroup;
   today: Date=new Date();
 
   // getErrorMessage() {
@@ -29,9 +32,8 @@ export class AddTechnicalServiceComponent implements OnInit{
   //     emailFormControl.hasError('email') ? 'not a valid email' : '';
   // }
 
-  constructor(private technicalServiceService: TechnicalServiceService, private employeeService: EmployeeService, private clientService: ClientService, private formBuilder: FormBuilder, private readonly routes: Router){
+  constructor(private technicalServiceService: TechnicalServiceService, private employeeService: EmployeeService,private machineService: MachineService, private clientService: ClientService, private formBuilder: FormBuilder, private readonly routes: Router){
   }
-
 
   ngOnInit(): void {
     this.getTechnicalServices();
@@ -40,12 +42,11 @@ export class AddTechnicalServiceComponent implements OnInit{
     this.form = this.getForm();
   }
 
-
-
   getForm(): FormGroup {
     return this.formBuilder.group({
-      employee: new FormControl('', [Validators.required]),
       client: new FormControl('', [Validators.required]),
+      machine: new FormControl('', []),
+      employee: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
       admissionDate: new FormControl('', [Validators.required]),
       price: new FormControl('', [Validators.required]),
@@ -57,6 +58,12 @@ export class AddTechnicalServiceComponent implements OnInit{
   getClients(): void{
     this.clientService.getClients().subscribe(clientsList => this.clients = clientsList.map( client =>  {
       return ClientModel.from(client);
+    }));
+  }
+
+  getMachineByClientId(id: number): void{
+    this.machineService.getMachineByClientId(id).subscribe(machineList => this.machines = machineList.map( machine =>  {
+      return MachineModel.from(machine);
     }));
   }
 

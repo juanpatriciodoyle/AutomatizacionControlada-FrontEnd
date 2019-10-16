@@ -26,7 +26,7 @@ export class MachineComponent implements OnInit{
     internalCode: 'Código Interno',
     brand: 'Marca',
     model: 'Modelo',
-    boughtHere: 'Comprada acá?',
+    boughtHere: 'Comprada en nuestro local?',
     options: 'opciones'
   };
   expandedElement: MachineModel | null;
