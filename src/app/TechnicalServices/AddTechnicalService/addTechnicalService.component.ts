@@ -80,7 +80,6 @@ export class AddTechnicalServiceComponent implements OnInit{
   add() {
     if(this.form.invalid) return;
     const data = this.form.getRawValue();
-    console.log(TechnicalService.fromForm(data));
     this.technicalServiceService.addTechnicalService(TechnicalService.fromForm(data)).subscribe(technicalService => {
       this.routes.navigate(['technicalServices'])
     }, error => {console.error(error)});

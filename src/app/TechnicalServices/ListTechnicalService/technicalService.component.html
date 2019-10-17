@@ -4,10 +4,24 @@
          [dataSource]="technicalServices" multiTemplateDataRows
          class="mat-elevation-z8">
     <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
-      <th mat-header-cell *matHeaderCellDef> {{columnTranslated[column]}} </th>
       <td mat-cell *matCellDef="let element">
-        <div *ngIf="column != 'options'">
-          {{column === 'status' ? (element.status | TranslateStatusPipe) : element[column]}}
+        <div *ngIf="column == 'status'">
+          {{element.status | TranslateStatusPipe}}
+        </div>
+        <div *ngIf="column == 'employee'">
+          {{element.employee["name"]}}
+        </div>
+        <div *ngIf="column == 'client'">
+          {{element.client["name"]}}
+        </div>
+        <div *ngIf="column == 'admissionDate'">
+          {{element.admissionDate| date:'shortDate'}}
+        </div>
+        <div *ngIf="column == 'egressDate'">
+          {{element.egressDate| date:'shortDate'}}
+        </div>
+        <div *ngIf="column != 'status' && column != 'employee' && column!='client' && column != 'options' && column != 'admissionDate' && column != 'egressDate'">
+          {{element[column]}}
         </div>
         <div *ngIf="column == 'options'">
           <div class="wrapper">
@@ -17,13 +31,14 @@
             </div>
             <div class="update">
               <a routerLink="/updateTechnicalService/{{element.id}}">
-                <button mat-mini-fab color="accent"><i class="material-icons">update</i></button>
+                <button mat-mini-fab color="accent"><i class="material-icons">edit</i></button>
               </a>
             </div>
 
           </div>
         </div>
       </td>
+      <th mat-header-cell *matHeaderCellDef> {{columnTranslated[column]}} </th>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
@@ -43,12 +58,3 @@
   </div>
 
 </div>
-
-
-
-
-
-
-
-
-

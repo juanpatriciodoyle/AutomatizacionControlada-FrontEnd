@@ -37,8 +37,8 @@ export class AddClientComponent implements OnInit{
 
   getForm(): FormGroup {
     return this.formBuilder.group({
-      name: new FormControl('', [Validators.required]),
-      surname: new FormControl('', [Validators.required]),
+      name: new FormControl('', [Validators.required, Validators.pattern('a-z A-z')]),
+      surname: new FormControl('', [Validators.required, ]),
       mail: new FormControl('', [Validators.required, Validators.email]),
       phone1: new FormControl('', [Validators.required]),
       phone2: new FormControl('', [Validators.required]),

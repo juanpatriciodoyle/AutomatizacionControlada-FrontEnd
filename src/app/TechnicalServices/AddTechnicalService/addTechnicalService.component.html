@@ -20,7 +20,7 @@
 
   <mat-form-field class="example-full-width">
     <mat-label>Máquina</mat-label>
-    <mat-select formControlName="client">
+    <mat-select formControlName="machine">
       <mat-option *ngFor="let machine of machines" [value]="machine.id">
         {{machine.internalCode}}
       </mat-option>
