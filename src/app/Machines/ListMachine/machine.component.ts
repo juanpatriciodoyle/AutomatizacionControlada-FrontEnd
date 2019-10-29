@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {MachineService} from '../../Services/machine.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {MachineModel} from "../machine.model";
+import {ClientModel} from "../../Clients/client.model";
 
 
 @Component({
@@ -40,6 +41,10 @@ export class MachineComponent implements OnInit{
 
   getMachines(): void{
     this.machineService.getMachines().subscribe(machinesList => this.machines = machinesList.map( machine => MachineModel.from(machine)));
+  }
+
+  getMachinesDeleted(): void {
+    this.machineService.getMachinesDeleted().subscribe(machinesList => this.machines = machinesList.map( machine => MachineModel.from(machine)));
   }
 
   delete(id: any) {

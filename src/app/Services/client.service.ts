@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import {ClientModel} from "../Clients/client.model";
+import {EmployeeModel} from "../Employees/employee.model";
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,14 @@ export class ClientService{
     return this.http.get<ClientModel[]>(this.clientsUrl).pipe(
       tap(),
       catchError(this.handleError<ClientModel[]>('getClients', []))
+    );
+  }
+
+  /** Get Deleted Clients from server*/
+  getClientsDeleted(): Observable<ClientModel[]> {
+    return this.http.get<ClientModel[]>(this.clientsUrl+'/Deleted').pipe(
+      tap(),
+      catchError(this.handleError<ClientModel[]>('getClientsDeleted', []))
     );
   }
 

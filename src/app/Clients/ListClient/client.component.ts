@@ -3,6 +3,7 @@ import {ClientService} from '../../Services/client.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {FormGroup} from '@angular/forms';
 import {ClientModel} from "../client.model";
+import {EmployeeModel} from "../../Employees/employee.model";
 
 
 @Component({
@@ -43,6 +44,12 @@ export class ClientComponent implements OnInit{
 
   getClients(): void{
     this.clientService.getClients().subscribe(clientsList => this.clients = clientsList.map( client =>  {
+      return ClientModel.from(client);
+    }));
+  }
+
+  getClientsDeleted(): void {
+    this.clientService.getClientsDeleted().subscribe(clientsList => this.clients = clientsList.map( client =>  {
       return ClientModel.from(client);
     }));
   }

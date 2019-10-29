@@ -1,5 +1,7 @@
 <div class="table-list">
 
+
+
   <table mat-table
          [dataSource]="employees" multiTemplateDataRows
          class="mat-elevation-z8">
@@ -33,6 +35,10 @@
     </tr>
   </table>
 
+  <div class="delete">
+    <button mat-button mat-mini-fab color="" (click)="getEmployeesDeleted()"><i
+      class="material-icons">restore</i></button>
+  </div>
 
   <div class="plus">
     <a routerLink="/addEmployee">

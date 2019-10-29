@@ -8,33 +8,46 @@
         <div *ngIf="column == 'status'">
           {{element.status | TranslateStatusPipe}}
         </div>
+        <div *ngIf="column == 'paymentMethod'">
+          {{element.paymentMethod | TranslatePaymentMethodPipe}}
+        </div>
         <div *ngIf="column == 'employee'">
           {{element.employee["name"]}}
+        </div>
+        <div *ngIf="column == 'machine'">
+          {{element.machine["internalCode"]}}
         </div>
         <div *ngIf="column == 'client'">
           {{element.client["name"]}}
         </div>
         <div *ngIf="column == 'admissionDate'">
-          {{element.admissionDate| date:'shortDate'}}
+          {{element.admissionDate| date:'dd/MM/yy'}}
         </div>
         <div *ngIf="column == 'egressDate'">
-          {{element.egressDate| date:'shortDate'}}
+          {{element.egressDate| date:'dd/MM/yy'}}
         </div>
-        <div *ngIf="column != 'status' && column != 'employee' && column!='client' && column != 'options' && column != 'admissionDate' && column != 'egressDate'">
+        <div *ngIf="column != 'status' && column != 'employee' && column!='client' && column != 'options' && column != 'admissionDate' && column != 'egressDate' && column != 'paymentMethod' && column != 'machine'">
           {{element[column]}}
         </div>
         <div *ngIf="column == 'options'">
+
           <div class="wrapper">
+
             <div class="delete">
               <button mat-mini-fab color="warn" (click)="delete(element.id)"><i
                 class="material-icons">restore_from_trash</i></button>
             </div>
+
             <div class="update">
               <a routerLink="/updateTechnicalService/{{element.id}}">
                 <button mat-mini-fab color="accent"><i class="material-icons">edit</i></button>
               </a>
             </div>
 
+            <div id="markAsDone">
+              <button mat-mini-fab color="normal" (click)="markAsDone(element.id)"><i
+                class="material-icons">done</i></button>
+            </div>
           </div>
         </div>
       </td>
@@ -47,6 +60,16 @@
         [class.example-expanded-row]="element">
     </tr>
   </table>
+
+  <div class="history">
+
+    <button mat-button mat-mini-fab color="" (click)="getTechnicalServicesDeleted()"><i
+      class="material-icons">restore</i></button>
+
+    <button id="historyMarkAsDone" mat-button mat-mini-fab color="" (click)="getTechnicalServicesMarkAsDone()"><i
+      class="material-icons">done_all</i></button>
+
+  </div>
 
 
   <div class="plus">

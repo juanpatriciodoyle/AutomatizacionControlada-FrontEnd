@@ -24,6 +24,14 @@ export class EmployeeService{
     );
   }
 
+  /** Get Deleted Employees from server*/
+  getEmployeesDeleted(): Observable<EmployeeModel[]> {
+    return this.http.get<EmployeeModel[]>(this.employeesUrl+'/Deleted').pipe(
+      tap(),
+      catchError(this.handleError<EmployeeModel[]>('getDeletedEmployees', []))
+    );
+  }
+
   addEmployee(employee: EmployeeModel): Observable<EmployeeModel>{
     return this.http.post<EmployeeModel>(this.employeesUrl, employee, this.httpOptions).pipe(
       tap(),

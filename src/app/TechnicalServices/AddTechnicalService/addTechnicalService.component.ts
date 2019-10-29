@@ -47,9 +47,9 @@ export class AddTechnicalServiceComponent implements OnInit{
       client: new FormControl('', [Validators.required]),
       machine: new FormControl('', []),
       employee: new FormControl('', [Validators.required]),
-      description: new FormControl('', [Validators.required]),
+      description: new FormControl('', [Validators.required, Validators.pattern('[a-z A-z]+')]),
       admissionDate: new FormControl('', [Validators.required]),
-      price: new FormControl('', [Validators.required]),
+      price: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.pattern('[0-9]+')]),
       paymentMethod: new FormControl('', [Validators.required]),
       status: new FormControl('', [Validators.required]),
     });

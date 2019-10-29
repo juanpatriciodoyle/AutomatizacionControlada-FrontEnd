@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import {MachineModel} from "../Machines/machine.model";
+import {ClientModel} from "../Clients/client.model";
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,21 @@ export class MachineService{
   /** Get Machines from server*/
   getMachines(): Observable<MachineModel[]> {
     return this.http.get<MachineModel[]>(this.machinesUrl).pipe(
+      tap(),
+      catchError(this.handleError<MachineModel[]>('getMachine', []))
+    );
+  }
+
+  /** Get Deleted Machines from server*/
+  getMachinesDeleted(): Observable<MachineModel[]> {
+    return this.http.get<MachineModel[]>(this.machinesUrl+'/Deleted').pipe(
+      tap(),
+      catchError(this.handleError<MachineModel[]>('getMachine', []))
+    );
+  }
+
+  getMachinesFree(): Observable<MachineModel[]> {
+    return this.http.get<MachineModel[]>(this.machinesUrl+'/Free').pipe(
       tap(),
       catchError(this.handleError<MachineModel[]>('getMachine', []))
     );

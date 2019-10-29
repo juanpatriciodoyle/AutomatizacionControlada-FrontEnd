@@ -6,61 +6,89 @@
 
   <div>
     <mat-form-field class="example-full-width">
-      <input #employee matInput placeholder="{{oldTechnicalService.employee}}" formControlName="name" [defaultValue]="oldTechnicalService.employee">
-    </mat-form-field>
-  </div>
-
-  <div>
-    <mat-form-field class="example-full-width">
-      <input #client matInput placeholder="{{oldTechnicalService.client}}" formControlName="surname" [defaultValue]="oldTechnicalService.client">
-    </mat-form-field>
-  </div>
-
-  <div>
-    <mat-form-field class="example-full-width">
-      <input #description matInput placeholder="{{oldTechnicalService.description}}" formControlName="surname" [defaultValue]="oldTechnicalService.description">
-    </mat-form-field>
-  </div>
-
-  <div>
-    <mat-form-field class="example-full-width">
-      <input #admissionDate matInput placeholder="{{oldTechnicalService.admissionDate}}" formControlName="surname" [defaultValue]="oldTechnicalService.admissionDate">
-    </mat-form-field>
-  </div>
-
-  <div>
-    <mat-form-field class="example-full-width">
-      <input #egressDate matInput placeholder="{{oldTechnicalService.egressDate}}" formControlName="surname" [defaultValue]="oldTechnicalService.egressDate">
-    </mat-form-field>
-  </div>
-
-  <div>
-    <mat-form-field class="example-full-width">
-      <input #price matInput placeholder="{{oldTechnicalService.price}}" formControlName="surname" [defaultValue]="oldTechnicalService.price">
-    </mat-form-field>
-  </div>
-
-  <div>
-    <mat-form-field class="example-full-width">
-      <input #paymentMethod matInput placeholder="{{oldTechnicalService.paymentMethod}}" formControlName="surname" [defaultValue]="oldTechnicalService.paymentMethod">
-    </mat-form-field>
-  </div>
-
-  <div>
-    <mat-form-field>
-      <mat-select #status placeholder="{{positionTranslated[oldTechnicalService.status]}}" formControlName="status">
-        <mat-option value="ONSERVICE">En Servicio</mat-option>
-        <mat-option value="DELAYED">Retrasada</mat-option>
-        <mat-option value="READY">Listo</mat-option>
-        <mat-option value="DELIVERED">Entregado</mat-option>
+      <mat-label>Responsable</mat-label>
+      <mat-select formControlName="employee">
+        <mat-option *ngFor="let employee of employees" [value]="employee">
+          {{employee.name}}
+        </mat-option>
       </mat-select>
     </mat-form-field>
   </div>
 
-  <div class="plus">
-    <button (click)="update()" [disabled]="form.invalid">
-      <i class="material-icons">person_add</i>
-    </button>
+
+    <div>
+      <mat-form-field class="example-full-width">
+        <mat-label>Cliente</mat-label>
+        <mat-select formControlName="client">
+          <mat-option *ngFor="let client of clients" [value]="client" (click)="getMachineByClientId(client.id)">
+            {{client.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field class="example-full-width">
+        <mat-label>Máquina</mat-label>
+        <mat-select formControlName="machine">
+          <mat-option *ngFor="let machine of machines" [value]="machine">
+            {{machine.internalCode}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field class="example-full-width">
+        <input #description matInput placeholder="{{oldTechnicalService.description}}" formControlName="description"
+               [defaultValue]="oldTechnicalService.description">
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field class="example-full-width">
+        <input #admissionDate matInput [max]="today" [matDatepicker]="picker" placeholder="Día de Ingreso" formControlName="admissionDate" disabled>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker disabled="false"></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field class="example-full-width">
+        <input #price matInput placeholder="{{oldTechnicalService.price}}" formControlName="price"
+               [defaultValue]="oldTechnicalService.price">
+      </mat-form-field>
+    </div>
+
+  <div>
+    <mat-form-field>
+      <mat-select #paymentMethod placeholder="{{paymentMethodTranslated[oldTechnicalService.paymentMethod]}}" formControlName="paymentMethod">
+        <mat-option value="NOT_ENTERED">No especificado</mat-option>
+        <mat-option value="CASH">Efectivo</mat-option>
+        <mat-option value="DEBIT">Débito</mat-option>
+        <mat-option value="CHECK">Cheque</mat-option>
+        <mat-option value="CREDIT">Crédito</mat-option>
+        <mat-option value="BILL">Factura</mat-option>
+        <mat-option value="FREE">Gratis</mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
+
+    <div>
+      <mat-form-field>
+        <mat-select #status placeholder="{{positionTranslated[oldTechnicalService.status]}}" formControlName="status">
+          <mat-option value="ONSERVICE">En Servicio</mat-option>
+          <mat-option value="DELAYED">Retrasada</mat-option>
+          <mat-option value="READY">Listo</mat-option>
+          <mat-option value="DELIVERED">Entregado</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="delete">
+      <button (click)="update()" [disabled]="form.invalid">
+        <i class="material-icons">person_add</i>
+      </button>
+    </div>
 
 </form>

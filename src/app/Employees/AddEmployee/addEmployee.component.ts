@@ -33,10 +33,9 @@ export class AddEmployeeComponent implements OnInit{
 
   getForm(): FormGroup {
     return this.formBuilder.group({
-      name: new FormControl('', [Validators.required]),
-      surname: new FormControl('', [Validators.required]),
+      name: new FormControl('', [Validators.required, Validators.pattern('[^1234567890.-:;,(=)/&%@$·!"·*$!]+')]),
+      surname: new FormControl('', [Validators.required, Validators.pattern('[^1234567890.-:;,(=)/&%@$·!"·*$!]+') ]),
       position: new FormControl('', [Validators.required]),
-      // email: ['', [Validators.email, Validators.required]]
     });
   }
 

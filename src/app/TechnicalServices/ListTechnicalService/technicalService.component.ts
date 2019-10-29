@@ -3,6 +3,8 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {TechnicalService} from "../technicalService.model";
 import {TechnicalServiceService} from "../../Services/technicalService.service";
+import {Router} from "@angular/router";
+import {ThemePalette} from "@angular/material/core";
 
 
 @Component({
@@ -21,11 +23,12 @@ import {TechnicalServiceService} from "../../Services/technicalService.service";
 export class TechnicalServiceComponent implements OnInit{
   technicalServices: TechnicalService[];
   form: FormGroup;
-  columnsToDisplay = ['id','employee', 'client', 'description', 'admissionDate', 'egressDate', 'price', 'paymentMethod', 'status', 'options'];
+  columnsToDisplay = ['id','employee', 'client', 'machine', 'description', 'admissionDate', 'egressDate', 'price', 'paymentMethod', 'status', 'options'];
   columnTranslated = {
     id: 'Código Servicio Técnico',
     employee:'Responsable',
     client:'Cliente',
+    machine:'Máquina',
     description:'Descripción',
     admissionDate:'Ingreso',
     egressDate:'Egreso',
@@ -35,7 +38,7 @@ export class TechnicalServiceComponent implements OnInit{
     options: 'opciones'
   };
 
-  constructor(private technicalServiceService: TechnicalServiceService, private formBuilder: FormBuilder){
+  constructor(private technicalServiceService: TechnicalServiceService, private formBuilder: FormBuilder, private routes: Router){
   }
 
   ngOnInit(): void {
@@ -47,6 +50,7 @@ export class TechnicalServiceComponent implements OnInit{
     return this.formBuilder.group({
       employee: new FormControl('', [Validators.required]),
       client: new FormControl('', [Validators.required]),
+      machine: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
       admissionDate: new FormControl('', [Validators.required]),
       egressDate: new FormControl('', [Validators.required]),
@@ -62,9 +66,28 @@ export class TechnicalServiceComponent implements OnInit{
     }));
   }
 
+  getTechnicalServicesDeleted(): void {
+    this.technicalServiceService.getTechnicalServicesDeleted().subscribe(technicalServicesList => this.technicalServices = technicalServicesList.map( technicalServices =>  {
+      return TechnicalService.from(technicalServices);
+    }));
+  }
+
+  getTechnicalServicesMarkAsDone(): void {
+    this.technicalServiceService.getTechnicalServicesMarkAsDone().subscribe(technicalServicesList => this.technicalServices = technicalServicesList.map( technicalServices =>  {
+      return TechnicalService.from(technicalServices);
+    }));
+  }
+
   delete(id: any) {
     this.technicalServiceService.deleteTechnicalService(id).subscribe( (result) => {
       this.technicalServices = this.technicalServices.filter( (technicalServices) => technicalServices.id != id)
     }, (error => console.error(error)));
+  }
+
+  markAsDone(id: any) {
+    this.technicalServiceService.markAsDoneTechnicalService(id).subscribe(technicalService => {
+        this.getTechnicalServices();
+      }, error => {console.error(error)}
+    );
   }
 }

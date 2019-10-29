@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {ClientModel} from "../client.model";
 import {MachineModel} from "../../Machines/machine.model";
 import {MachineService} from "../../Services/machine.service";
+import {phoneMatchValidator} from "./phoneMatchValidator";
 
 
 @Component({
@@ -37,11 +38,11 @@ export class AddClientComponent implements OnInit{
 
   getForm(): FormGroup {
     return this.formBuilder.group({
-      name: new FormControl('', [Validators.required, Validators.pattern('a-z A-z')]),
-      surname: new FormControl('', [Validators.required, ]),
+      name: new FormControl('', [Validators.required, Validators.pattern('[^1234567890.-:;,(=)/&%@$·!"·*$!]+')]),
+      surname: new FormControl('', [Validators.required, Validators.pattern('[^1234567890.-:;,(=)/&%@$·!"·*$!]+') ]),
       mail: new FormControl('', [Validators.required, Validators.email]),
-      phone1: new FormControl('', [Validators.required]),
-      phone2: new FormControl('', [Validators.required]),
+      phone1: new FormControl('', [Validators.required, Validators.maxLength(15), Validators.minLength(6), Validators.pattern('[0-9]+')]),
+      phone2: new FormControl('', [Validators.required, Validators.maxLength(15), Validators.minLength(6), Validators.pattern('[0-9]+'), phoneMatchValidator]),
       machineList: new FormControl('', [Validators.required]),
     });
   }
@@ -51,13 +52,12 @@ export class AddClientComponent implements OnInit{
   }
 
   getMachines(): void{
-    this.machineService.getMachines().subscribe(machinesList => this.machineList = machinesList.map( machine => MachineModel.from(machine)));
+    this.machineService.getMachinesFree().subscribe(machinesList => this.machineList = machinesList.map( machine => MachineModel.from(machine)));
   }
 
   add() {
     if(this.form.invalid) return;
     const data = this.form.getRawValue();
-    console.log(data)
     this.clientService.addClient(ClientModel.fromForm(data)).subscribe(client => {
       this.routes.navigate(['clients'])
     }, error => {console.error(error)});

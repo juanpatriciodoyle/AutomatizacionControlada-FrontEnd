@@ -3,6 +3,7 @@ import {HttpHeaders, HttpClient} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import {TechnicalService} from "../TechnicalServices/technicalService.model";
+import {ClientModel} from "../Clients/client.model";
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,22 @@ export class TechnicalServiceService{
       catchError(this.handleError<TechnicalService[]>('getTechnicalService', []))
     );
   }
+
+  /** Get Deleted TechnicalServices from server*/
+  getTechnicalServicesDeleted(): Observable<TechnicalService[]> {
+    return this.http.get<TechnicalService[]>(this.technicalServicesUrl+'/Deleted').pipe(
+      tap(),
+      catchError(this.handleError<TechnicalService[]>('getTechnicalService', []))
+    );
+  }
+
+  getTechnicalServicesMarkAsDone(): Observable<TechnicalService[]> {
+    return this.http.get<TechnicalService[]>(this.technicalServicesUrl+'/MarkAsDone').pipe(
+      tap(),
+      catchError(this.handleError<TechnicalService[]>('getTechnicalService', []))
+    );
+  }
+
 
   addTechnicalService(technicalService: TechnicalService): Observable<TechnicalService>{
     return this.http.post<TechnicalService>(this.technicalServicesUrl, technicalService, this.httpOptions).pipe(
@@ -49,6 +66,13 @@ export class TechnicalServiceService{
     return this.http.put<TechnicalService>(this.technicalServicesUrl+'/'+id, technicalService, this.httpOptions).pipe(
       tap(),
       catchError(this.handleError<TechnicalService>('updateTechnicalService'))
+    )
+  }
+
+  markAsDoneTechnicalService(id: number): Observable<TechnicalService> {
+    return this.http.put<TechnicalService>(this.technicalServicesUrl+'/MarkAsDone/'+id, this.httpOptions).pipe(
+      tap(),
+      catchError(this.handleError<TechnicalService>('markAsDoneTechnicalService'))
     )
   }
 

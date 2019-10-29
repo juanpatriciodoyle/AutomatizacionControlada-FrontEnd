@@ -43,15 +43,23 @@
   </mat-form-field>
 
   <mat-form-field class="example-full-width">
-    <input #paymentMethod matInput placeholder="Método de Pago" formControlName="paymentMethod">
-  </mat-form-field>
-
-  <mat-form-field>
     <mat-select #status placeholder="Estado" formControlName="status">
       <mat-option value="ONSERVICE">En servicio</mat-option>
       <mat-option value="DELAYED">Retrasada</mat-option>
       <mat-option value="READY">Listo</mat-option>
       <mat-option value="DELIVERED">Entregado</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-select #paymentMethod placeholder="Medio de Pago" formControlName="paymentMethod">
+      <mat-option value="NOT_ENTERED">No especificado</mat-option>
+      <mat-option value="CASH">Efectivo</mat-option>
+      <mat-option value="DEBIT">Débito</mat-option>
+      <mat-option value="CHECK">Cheque</mat-option>
+      <mat-option value="CREDIT">Crédito</mat-option>
+      <mat-option value="BILL">Factura</mat-option>
+      <mat-option value="FREE">Gratis</mat-option>
     </mat-select>
   </mat-form-field>
 

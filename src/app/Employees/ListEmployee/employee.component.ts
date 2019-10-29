@@ -27,7 +27,7 @@ export class EmployeeComponent implements OnInit{
     id: 'Código Empleado',
     name: 'nombre',
     surname: 'apellido',
-    position: 'posicion',
+    position: 'posición',
     options: 'opciones'
   };
 
@@ -50,6 +50,12 @@ export class EmployeeComponent implements OnInit{
 
   getEmployees(): void{
     this.employeeService.getEmployees().subscribe(employeesList => this.employees = employeesList.map( employee =>  {
+      return EmployeeModel.from(employee);
+    }));
+  }
+
+  getEmployeesDeleted(): void {
+    this.employeeService.getEmployeesDeleted().subscribe(employeesList => this.employees = employeesList.map( employee =>  {
       return EmployeeModel.from(employee);
     }));
   }
